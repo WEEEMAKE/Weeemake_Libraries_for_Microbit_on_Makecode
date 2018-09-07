@@ -1,0 +1,22 @@
+{
+    "name": "elfshield",
+    "version": "1.0.0",
+    "description": "ELF shield for microbit by Weeemake.",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "neopixel": "github:Microsoft/pxt-neopixel#v0.6.8"
+    },
+    "files": [
+        "README.md",
+        "elfshield.ts",
+        "elfshield.cpp",
+        "shims.d.ts",
+        "enums.d.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true
+}
