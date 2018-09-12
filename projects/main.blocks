@@ -1,0 +1,27 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables></variables>
+  <block type="pxt-on-start" x="57" y="-783"></block>
+  <block type="device_forever" x="125" y="-606">
+    <statement name="HANDLER">
+      <block type="serial_writenumber">
+        <value name="value">
+          <shadow type="math_number" id="+X/r${s_{%.{k+][9Q8g">
+            <field name="NUM">0</field>
+          </shadow>
+          <block type="wemakebit_ultrasonicDistanceCm">
+            <field name="pinNum">elfshield.wPorts.PortA</field>
+          </block>
+        </value>
+        <next>
+          <block type="device_pause">
+            <value name="pause">
+              <shadow type="math_number">
+                <field name="NUM">100</field>
+              </shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

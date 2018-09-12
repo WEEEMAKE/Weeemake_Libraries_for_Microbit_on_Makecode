@@ -10,7 +10,7 @@ using namespace pxt;
 #define PXT_BUFFER_DATA(buffer) buffer->payload
 #endif
 
-namespace elfshield {
+namespace wemakebit {
 	volatile unsigned int *setdir = (unsigned int *) (0x50000000UL + 0x518);
     volatile unsigned int *clrdir = (unsigned int *) (0x50000000UL + 0x51C);
     volatile unsigned int *inp = (unsigned int *) (0x50000000UL + 0x510);
@@ -18,7 +18,6 @@ namespace elfshield {
     uint32_t mask14 = 1 << 22;
     uint32_t mask15 = 1 << 21;
     uint32_t mask16 = 1 << 16;
-    MicroBitPin P12 = uBit.io.P12;
     MicroBitPin P13 = uBit.io.P13;
     MicroBitPin P14 = uBit.io.P14;
     MicroBitPin P15 = uBit.io.P15;
@@ -40,6 +39,7 @@ namespace elfshield {
     volatile uint8_t  Flame_Sensor2;
     volatile uint8_t  Flame_Sensor3;
 
+    volatile uint16_t UdistanceCm=0;
     volatile uint16_t Redvalue;
     volatile uint16_t Greenvalue;
     volatile uint16_t Bluevalue;
@@ -48,19 +48,10 @@ namespace elfshield {
     volatile uint8_t panel_width=21;
     volatile uint8_t panel_height=7;
     //%
-    void gpioTest(){
-        while(1){
-            P12.setDigitalValue(0);
-            for (volatile uint16_t i = 0; i < 100; i++);
-            P12.setDigitalValue(1);
-            for (volatile uint8_t i = 0; i < 100; i++);
-        }
-    }
-
-    //%
     uint8_t oneWireReset(uint8_t pinNum){
         if(pinNum == 1)
         {
+            P13.setDigitalValue(0);
             P13.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
             int b = P13.getDigitalValue();
@@ -69,11 +60,12 @@ namespace elfshield {
             //int b = P13.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
-            for (volatile uint16_t i = 0; i < 100; i++);
+            for (volatile uint8_t i = 0; i < 100; i++);
             return b;
         }
         else if(pinNum == 2)
         {
+            P14.setDigitalValue(0);
             P14.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
             int b = P14.getDigitalValue();
@@ -82,11 +74,12 @@ namespace elfshield {
             //int b = P14.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
-            for (volatile uint16_t i = 0; i < 100; i++);
+            for (volatile uint8_t i = 0; i < 100; i++);
             return b;
         }
         else if(pinNum == 3)
         {
+            P15.setDigitalValue(0);
             P15.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
             int b = P15.getDigitalValue();
@@ -95,11 +88,12 @@ namespace elfshield {
             //int b = P15.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
-            for (volatile uint16_t i = 0; i < 100; i++);
+            for (volatile uint8_t i = 0; i < 100; i++);
             return b;
         }
         else if(pinNum == 4)
         {
+            P16.setDigitalValue(0);
             P16.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
             int b = P16.getDigitalValue();
@@ -108,7 +102,7 @@ namespace elfshield {
             //int b = P13.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
-            for (volatile uint16_t i = 0; i < 100; i++);
+            for (volatile uint8_t i = 0; i < 100; i++);
             return b;
         }
     }
@@ -118,54 +112,54 @@ namespace elfshield {
     {
         if(pinNum == 1)
         {
-            while(1== P13.getDigitalValue());
-            //uint32_t time = uBit.systemTime();
-            //while(1== P13.getDigitalValue()){
-            //    if((uBit.systemTime()-time)>100){
-            //        return 0;
-            //    }
-            //}
+            uint32_t time = uBit.systemTime();
+            while(1== P13.getDigitalValue()){
+               if((uBit.systemTime()-time)>100){
+                   return 0;
+               }
+            }
             while(0== P13.getDigitalValue());
-            for (volatile uint16_t i = 0; i < 5;i++);
+            for (volatile uint8_t i = 0; i < 30;i++);
+            //P13.getDigitalValue();
             return 1;
         }
         else if(pinNum == 2)
         {
-            while(1== P14.getDigitalValue());
-            //uint32_t time = uBit.systemTime();
-            //while(1== P14.getDigitalValue()){
-            //    if((uBit.systemTime()-time)>100){
-            //        return 0;
-            //    }
-            //}
+            uint32_t time = uBit.systemTime();
+            while(1== P14.getDigitalValue()){
+               if((uBit.systemTime()-time)>100){
+                   return 0;
+               }
+            }
             while(0== P14.getDigitalValue());
-            for (volatile uint16_t i = 0; i < 5;i++);
+            //P14.setDigitalValue(0);
+            for (volatile uint8_t i = 0; i < 30;i++);
             return 1;
         }
         else if(pinNum == 3)
         {
-            while(1== P15.getDigitalValue());
-            //uint32_t time = uBit.systemTime();
-            //while(1== P15.getDigitalValue()){
-            //    if((uBit.systemTime()-time)>100){
-            //        return 0;
-            //    }
-            //}
+            uint32_t time = uBit.systemTime();
+            while(1== P15.getDigitalValue()){
+               if((uBit.systemTime()-time)>100){
+                   return 0;
+               }
+            }
             while(0== P15.getDigitalValue());
-            for (volatile uint16_t i = 0; i < 5;i++);
+            //P15.setDigitalValue(0);
+            for (volatile uint8_t i = 0; i < 30;i++);
             return 1;
         }
         else if(pinNum == 4)
         {
-            while(1== P16.getDigitalValue());
-            //uint32_t time = uBit.systemTime();
-            //while(1== P16.getDigitalValue()){
-            //    if((uBit.systemTime()-time)>10){
-            //        return 0;
-            //    }
-            //}
+            uint32_t time = uBit.systemTime();
+            while(1== P16.getDigitalValue()){
+               if((uBit.systemTime()-time)>10){
+                   return 0;
+               }
+            }
             while(0== P16.getDigitalValue());
-            for (volatile uint16_t i = 0; i < 5;i++);
+            //P16.setDigitalValue(0);
+            for (volatile uint8_t i = 0; i < 30;i++);
             return 1;
         }
     }
@@ -178,7 +172,7 @@ namespace elfshield {
         {
             for(i=0; i<8; i++){
                 P13.setDigitalValue(0);
-                for (volatile uint16_t i = 0; i < 2;i++);
+                for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
                     P13.setDigitalValue(1);
@@ -188,16 +182,16 @@ namespace elfshield {
                     P13.setDigitalValue(0);
                 }
                 value = value>>1;
-                for (volatile uint16_t i = 0; i < 32;i++);
+                for (volatile uint8_t j = 0; j < 32;j++);
                 P13.setDigitalValue(1);
-                for (volatile uint16_t i = 0; i < 3;i++);
+                for (volatile uint8_t j = 0; j < 4;j++);
             }
         }
         else if(pinNum == 2)
         {
             for(i=0; i<8; i++){
                 P14.setDigitalValue(0);
-                for (volatile uint16_t i = 0; i < 2;i++);
+                for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
                     P14.setDigitalValue(1);
@@ -207,16 +201,16 @@ namespace elfshield {
                     P14.setDigitalValue(0);
                 }
                 value = value>>1;
-                for (volatile uint16_t i = 0; i < 32;i++);
+                for (volatile uint8_t j = 0; j < 32;j++);
                 P14.setDigitalValue(1);
-                for (volatile uint16_t i = 0; i < 3;i++);
+                for (volatile uint8_t j = 0; j < 4;j++);
             }
         }
         else if(pinNum == 3)
         {
             for(i=0; i<8; i++){
                 P15.setDigitalValue(0);
-                for (volatile uint16_t i = 0; i < 2;i++);
+                for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
                     P15.setDigitalValue(1);
@@ -226,16 +220,16 @@ namespace elfshield {
                     P15.setDigitalValue(0);
                 }
                 value = value>>1;
-                for (volatile uint16_t i = 0; i < 32;i++);
+                for (volatile uint8_t j = 0; j < 32;j++);
                 P15.setDigitalValue(1);
-                for (volatile uint16_t i = 0; i < 3;i++);
+                for (volatile uint8_t j = 0; j < 4;j++);
             }
         }
         else if(pinNum == 4)
         {
             for(i=0; i<8; i++){
                 P16.setDigitalValue(0);
-                for (volatile uint16_t i = 0; i < 2;i++);
+                for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
                     P16.setDigitalValue(1);
@@ -245,9 +239,9 @@ namespace elfshield {
                     P16.setDigitalValue(0);
                 }
                 value = value>>1;
-                for (volatile uint16_t i = 0; i < 32;i++);
+                for (volatile uint8_t j = 0; j < 32;j++);
                 P16.setDigitalValue(1);
-                for (volatile uint16_t i = 0; i < 3;i++);
+                for (volatile uint8_t j = 0; j < 4;j++);
             }
             //P16.getDigitalValue();
         }
@@ -264,9 +258,9 @@ namespace elfshield {
             for(i=0; i<8; i++)
             {
                 while(1== P13.getDigitalValue());
-                for (volatile uint16_t i = 0; i < 30;i++);
+                for (volatile uint8_t l = 0; l < 30;l++);
                 j = P13.getDigitalValue();
-                for (volatile uint16_t i = 0; i < 50;i++);
+                for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
             return(k);
@@ -278,9 +272,9 @@ namespace elfshield {
             for(i=0; i<8; i++)
             {
                 while(1== P14.getDigitalValue());
-                for (volatile uint16_t i = 0; i < 30;i++);
+                for (volatile uint8_t l = 0; l < 30;l++);
                 j = P14.getDigitalValue();
-                for (volatile uint16_t i = 0; i < 50;i++);
+                for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
             return(k);
@@ -292,9 +286,9 @@ namespace elfshield {
             for(i=0; i<8; i++)
             {
                 while(1== P15.getDigitalValue());
-                for (volatile uint16_t i = 0; i < 30;i++);
+                for (volatile uint8_t l = 0; l < 30;l++);
                 j = P15.getDigitalValue();
-                for (volatile uint16_t i = 0; i < 50;i++);
+                for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
             return(k);
@@ -306,9 +300,9 @@ namespace elfshield {
             for(i=0; i<8; i++)
             {   
                 while(1== P16.getDigitalValue());
-                for (volatile uint16_t i = 0; i < 30;i++);
+                for (volatile uint8_t l = 0; l < 30;l++);
                 j = P16.getDigitalValue();
-                for (volatile uint16_t i = 0; i < 50;i++);
+                for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
             return (k);
@@ -328,7 +322,7 @@ namespace elfshield {
         if(oneWireReset(pinNum) != 0){
             return;
         }
-        OneWireWriteByte(pinNum,mode-1);
+        OneWireWriteByte(pinNum,mode);
     }
     //%
     uint8_t getTouched(uint8_t pinNum)
@@ -538,20 +532,20 @@ namespace elfshield {
     //%
     uint16_t colorSensorReadValue(uint8_t pinNum, uint8_t type)
     {
-        uint8_t ColorData[6] = {0};
+        uint16_t ColorData[8] = {0};
         if(oneWireReset(pinNum) != 0)return 0;
         OneWireWriteByte(pinNum,0x02);
         OneWireRespond(pinNum);
-        for(uint8_t i=0;i<6;i++)
+        for(uint8_t i=0;i<8;i++)
         {
            ColorData[i]=OneWireReadByte(pinNum);
         }
         Redvalue   = (uint16_t)(ColorData[1] << 8 | ColorData[0]);
         Greenvalue = (uint16_t)(ColorData[3] << 8 | ColorData[2]);
         Bluevalue  = (uint16_t)(ColorData[5] << 8 | ColorData[4]);
-        //Colorvalue = (uint16_t)(ColorData[7] << 8 | ColorData[6]);
+        Colorvalue = (uint16_t)(ColorData[7] << 8 | ColorData[6]);
+        uBit.sleep(10);
         switch(type){
-            //case 0: return Colorvalue;
             case 1: return Redvalue;
             case 2: return Greenvalue;
             case 3: return Bluevalue;
@@ -772,19 +766,11 @@ namespace elfshield {
     **We 130 DC Motor module V1.0.
      */
     //%
-    void DC130MotorRunSpeed(uint8_t pinNum, uint16_t speed)
+    void DC130MotorRunSpeed(uint8_t pinNum, int16_t speed)
     {
         speed = speed > 255 ? 255 : speed;
         speed = speed < -255 ? -255 : speed;
         
-        if(DC130Last_speed != speed)
-        {
-          DC130Last_speed = speed;
-        }
-        else
-        {
-          return;
-        }
         if(speed >= 0)
         {   
             if(oneWireReset(pinNum) != 0)return;
@@ -858,20 +844,26 @@ namespace elfshield {
     //%
     uint16_t ultrasonicDistanceCm(uint8_t pinNum)
     {
-        uint16_t distance=0;
-        uint8_t Sensor_data1 = 0,Sensor_data2 = 0;
+        uint16_t Sensor_data1 = 0,Sensor_data2 = 0;
         if(oneWireReset(pinNum) != 0)
             return 500;
         OneWireWriteByte(pinNum,0x02);
         OneWireRespond(pinNum);
         Sensor_data1=OneWireReadByte(pinNum);
-        Sensor_data2=OneWireReadByte(pinNum);   
-        //distance=((uint16_t)_Sensor_data2<<8)|((uint16_t)_Sensor_data1);    
-        return 5;
-        //if (((double)distance/17.57)>500)
-        //    return 500;
-        //else
-        //    return ((double)distance/17.57);
+        Sensor_data2=OneWireReadByte(pinNum);
+        UdistanceCm=Sensor_data2*256 + Sensor_data1;
+        //UdistanceCm=(uint16_t)(Sensor_data2<<8 | Sensor_data1); 
+        UdistanceCm=(uint16_t)UdistanceCm/17.57;
+        
+        if (UdistanceCm>500)
+        {
+            return 500;
+        }
+        else
+        {
+            return UdistanceCm;
+        }
+        
     }
     
     /*
@@ -952,131 +944,25 @@ namespace elfshield {
         uBit.sleep(60);
     }
     /*
-    **We OLED module V1.0.
-     */
-    //%
-    void OLEDClearScreen(uint8_t pinNum)
-    {
-        if(oneWireReset(pinNum) != 0)return;
-        OneWireWriteByte(pinNum,0x04);
-        uBit.sleep(3);        
-    }
-
-    //%
-    void OLEDShowChar(uint8_t pinNum,uint8_t X_pos,uint8_t Y_pos,uint8_t buffer)
-    {
-        if(oneWireReset(pinNum) != 0)return;
-        OneWireWriteByte(pinNum,0x03);
-        if(oneWireReset(pinNum) != 0)return;
-        OneWireWriteByte(pinNum,X_pos);
-        OneWireWriteByte(pinNum,Y_pos);
-        OneWireWriteByte(pinNum,buffer);
-        uBit.sleep(3); 
-    }
-    
-    /*
-    void OLEDShowString(uint8_t pinNum,uint8_t X_position,uint8_t Y_position, String *text)
-    {
-       uint8_t number_of_Str;
-       if(oneWireReset(pinNum) != 0)return;
-       OneWireWriteByte(pinNum,0x02);
-       if(oneWireReset(pinNum) != 0)return;
-       OneWireWriteByte(pinNum,8);
-       OneWireWriteByte(pinNum,X_position);
-       OneWireWriteByte(pinNum,Y_position);
-       for(number_of_Str=0; text[number_of_Str] != '\0';number_of_Str++)
-       {
-           OneWireWriteByte(pinNum,(int8_t)(text[number_of_Str]));
-       }
-       OneWireWriteByte(pinNum,0);
-       uBit.sleep(3); 
-    }
+    **We Humiture Sensor Sensor V1.0.
     */
-    //%
-    void OLEDSendNum(uint8_t pinNum, uint8_t X_pos,uint8_t Y_pos,uint8_t Num)
+    //%  
+    uint16_t humitureSensorRead(uint8_t pinNum, uint8_t index)
     {
-        if(oneWireReset(pinNum) != 0)return;
-        OneWireWriteByte(pinNum,0x05);
-        if(oneWireReset(pinNum) != 0)return;
-        OneWireWriteByte(pinNum,8);
-        OneWireWriteByte(pinNum,X_pos);
-        OneWireWriteByte(pinNum,Y_pos);
-        OneWireWriteByte(pinNum,Num);
-        uBit.sleep(3);
-    }
-
-    //%
-    void OLEDShowNum(uint8_t pinNum, uint8_t X_pos,uint8_t Y_pos,uint32_t Num)
-    {
-        uint8_t digits_num=2;
-        double num_decimal=0;
-        long num_integer=0;
-        long num_data=1000000000;
-        uint8_t digits_count;
-        if(Num==0)
+        uint8_t _temperature,_humidity;
+        if(oneWireReset(pinNum) != 0)
+            return 0;
+        OneWireWriteByte(pinNum,0x02);
+        OneWireRespond(pinNum);
+        _humidity=OneWireReadByte(pinNum);
+        _temperature=OneWireReadByte(pinNum);
+        uBit.sleep(25);
+        switch(index)
         {
-            OLEDSendNum(pinNum,X_pos,Y_pos,0);
-        }
-        else
-        {
-            if(Num<0)
-            {
-                OLEDSendNum(pinNum,X_pos,Y_pos,-3);
-                X_pos=X_pos+8;
-                Num=-Num;
-            }
-            num_integer=(long)Num;
-            num_decimal=Num-num_integer;    
-            
-            if(num_integer>=1)
-            {
-                while((num_integer/num_data)==0) num_data=num_data/10;
-                while(num_data>1)
-                {
-                    OLEDShowNum(pinNum,X_pos,Y_pos,num_integer/num_data);
-                    num_integer=num_integer%num_data;
-                    num_data=num_data/10;
-                    X_pos=X_pos+8;
-                }
-                OLEDShowNum(pinNum,X_pos,Y_pos,num_integer/1);
-                X_pos=X_pos+8;
-                if (num_decimal>0)
-                {
-                    digits_count=0;
-                    if(digits_count>=digits_num) return;
-                    OLEDShowNum(pinNum,X_pos,Y_pos,-2);
-                    X_pos=X_pos+8;
-                    while(num_decimal>0)
-                    {      
-                        if(digits_count>=digits_num) return;
-                        OLEDShowNum(pinNum,X_pos,Y_pos,num_decimal*10/1);
-                        num_decimal=num_decimal*10-(uint8_t)(num_decimal*10);
-                        X_pos=X_pos+8;
-                        digits_count++;
-                    }
-                }
-            }
-            else
-            {
-                digits_count=0;
-                if(digits_count>=digits_num) return;
-                OLEDShowNum(pinNum,X_pos,Y_pos,0); 
-                X_pos=X_pos+8;
-                OLEDShowNum(pinNum,X_pos,Y_pos,-2);
-                X_pos=X_pos+8;
-                digits_num=0;
-                while(num_decimal>0)
-                {
-                    if(digits_count>=digits_num) return;
-                    OLEDShowNum(pinNum,X_pos,Y_pos,num_decimal*10/1);
-                    num_decimal=num_decimal*10-(uint8_t)(num_decimal*10);
-                    X_pos=X_pos+8;
-                    digits_count++;                 
-                }   
-            }
+            case 0: return _temperature;
+            case 1: return _humidity;
         }
     }
-
     /*
     **We LED Matrix7*21 module V1.0.
     */

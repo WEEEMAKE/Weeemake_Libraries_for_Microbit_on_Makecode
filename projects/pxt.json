@@ -1,0 +1,14 @@
+{
+    "name": "无标题",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "elfshield": "*"
+    },
+    "description": "",
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ]
+}

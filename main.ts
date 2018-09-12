@@ -1,9 +1,9 @@
 /*
 load dependency
-"elfshield": "file:../elfshield.ts"
+"elfshield": "file:../main.ts"
 */
 
-//% color=#f44242 weight=10 icon="\uf1d0"
+//% color=#ff6680 weight=10 icon="\uf108"
 namespace elfshield {
 
 enum NeoPixelColors {
@@ -45,13 +45,13 @@ enum NeoPixelColors {
     const ALL_LED_OFF_H = 0xFD
 
     export enum Servos {
-        S1 = 0x01,
-        S2 = 0x02,
+        S1 = 2,
+        S2 = 1
     }
 
     export enum Motors {
-        M1 = 0x1,
-        M2 = 0x2,
+        M1 = 1,
+        M2 = 2
     }
     export enum wPorts {
         PortA = 1,
@@ -60,8 +60,8 @@ enum NeoPixelColors {
         PortD = 4
     }
     export enum touchMode {
-        Mode0 = 1,
-        Mode1 = 2
+        Mode0 = 0,
+        Mode1 = 1
     }
 
     export enum ultrasonicLED {
@@ -80,7 +80,6 @@ enum NeoPixelColors {
         key4 = 4
     }
     export enum Colors{
-        //light = 0,
         red = 1,
         green = 2,
         blue = 3
@@ -102,6 +101,10 @@ enum NeoPixelColors {
         FLASH = 4,
         TFCard = 2
     }
+    export enum Humiture{
+        temperature = 0,
+        humidity = 1
+    }    
     let initialized = false
     let neoStrip: neopixel.Strip;
 
@@ -163,25 +166,25 @@ enum NeoPixelColors {
     }
 
     function stopMotor(index: number) {
-        setPwm((index - 1), 0, 0);
-        setPwm((index - 1) + 1, 0, 0);
+        setPwm((index - 1)*2, 0, 0);
+        setPwm((index - 1)*2 + 1, 0, 0);
     }
     /**
-     * Init RGB pixels mounted on elfshield
+     * Init RGB pixels mounted on robotbit
      */
-    //% blockId="elfshield_rgb" block="RGB"
+    //% blockId="wemakebit_rgb" block="RGB"
     //% weight=5
     //% blockGap=10
     export function rgb(): neopixel.Strip {
         if (!neoStrip) {
-            neoStrip = neopixel.create(DigitalPin.P8, 5, NeoPixelMode.RGB)
+            neoStrip = neopixel.create(DigitalPin.P8, 3, NeoPixelMode.RGB)
         }
         return neoStrip;
     }
     /**
      * get mic analog value.
      */
-    //% blockId="elfshield_mic" block="Volume"
+    //% blockId="wemakebit_mic" block="Volume"
     //% weight=5
     //% blockGap=10
     export function getMicValue(): number {
@@ -191,10 +194,10 @@ enum NeoPixelColors {
     }
     /**
      * Servo Execute
-     * @param index Servo Channel; eg: S1
+     * @param index Servo Channel; eg: S1, S2
      * @param degree [0-180] degree of servo; eg: 0, 90, 180
     */
-    //% blockId=robotbit_servo block="Servo|%index|degree %degree"
+    //% blockId=wemakebit_servo block="Servo|%index|degree %degree"
     //% weight=22
     //% blockGap=10
     //% degree.min=0 degree.max=180
@@ -208,7 +211,7 @@ enum NeoPixelColors {
         let value = v_us * 4096 / 20000
         setPwm(index + 12, 0, value)
     }
-    //% blockId=robotbit_motor_run block="Motor|%index|speed %speed"
+    //% blockId=wemakebit_motor_run block="Motor|%index|speed %speed"
     //% weight=22
     //% blockGap=10
     //% speed.min=-255 speed.max=255
@@ -226,8 +229,8 @@ enum NeoPixelColors {
         }
         if (index > 2 || index <= 0)
             return
-        let pp = (index - 1) 
-        let pn = (index - 1) + 1
+        let pp = (index - 1)*2;
+        let pn = (index - 1)*2 + 1;
         if (speed >= 0) {
             setPwm(pp, 0, speed)
             setPwm(pn, 0, 0)
@@ -238,11 +241,11 @@ enum NeoPixelColors {
     }
     /**
      * Execute single motors with delay
-     * @param index Motor Index; eg: M1A, M1B, M2A, M2B
-     * @param speed [-255-255] speed of motor; eg: 150, -150
+     * @param index Motor Index; eg: M1, M2
+     * @param speed [-255-255] speed of motor; eg: 150
      * @param delay seconde delay to stop; eg: 1
     */
-    //% blockId=robotbit_motor_rundelay block="Motor|%index|speed %speed|delay %delay|s"
+    //% blockId=wemakebit_motor_rundelay block="Motor|%index|speed %speed|delay %delay|s"
     //% weight=22
     //% blockGap=10
     //% speed.min=-255 speed.max=255
@@ -253,14 +256,14 @@ enum NeoPixelColors {
         MotorRun(index, 0);
     }
 
-    //% blockId=robotbit_stop block="Motor Stop|%index|"
+    //% blockId=wemakebit_stop block="Motor Stop|%index|"
     //% weight=22
     //% blockGap=10
     export function MotorStop(index: Motors): void {
         MotorRun(index, 0);
     }
 
-    //% blockId=robotbit_stop_all block="Motor Stop All"
+    //% blockId=wemakebit_stop_all block="Motor Stop All"
     //% weight=22
     //% blockGap=10
     export function MotorStopAll(): void {
@@ -273,10 +276,10 @@ enum NeoPixelColors {
      * @param index Mode; eg: Mode1
      * @param Mode [0-1] ; eg: 0, 1
     */
-    //% blockId="elfshield_touchSetMode" block="touch |%pinNum| setMode |%mode"
+    //% blockId="wemakebit_touchSetMode" block="touch |%pinNum| setMode |%mode"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::touchSetMode
+    //% shim=wemakebit::touchSetMode
     export function touchSetMode(pinNum: wPorts,mode: touchMode): void {
         return;
     }
@@ -284,265 +287,212 @@ enum NeoPixelColors {
     /**
     * get touch module status.
     */
-    //% blockId="elfshield_getTouched" block="touched |%pinNum"
+    //% blockId="wemakebit_getTouched" block="touched |%pinNum"
     //% weight=10
     //% blockGap=10
-    //% shim=elfshield::getTouched
+    //% shim=wemakebit::getTouched
     export function getTouched(pinNum: wPorts): number {
         return 0;
-    }
+    } 
 
     /**
      * Water Atomizer Moduel set start
     */
-    //% blockId="elfshield_waterAtomizerSet" block="water Atomizer |%pinNum| |%swStatus"
+    //% blockId="wemakebit_waterAtomizerSet" block="water Atomizer |%pinNum| |%swStatus"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::waterAtomizerSet
+    //% shim=wemakebit::waterAtomizerSet
     export function waterAtomizerSet(pinNum: wPorts, isOn: swStatus): void {
         return;
-    }
-
-    /**
-     * 4 LED Button set LED
-    */
-    //% blockId="elfshield_LED4ButtonSetLed" block="LED Button|%pinNum| set led |%KeyButtons| |%swStatus"
-    //% weight=22
-    //% blockGap=10
-    //% shim=elfshield::LED4ButtonSetLed
-    export function LED4ButtonSetLed(pinNum: wPorts,index: KeyButtons, isOn: swStatus): void {
-        return;
-    }
+    }  
 
     /**
      * 4 LED Button read Key
     */
-    //% blockId="elfshield_LED4ButtonReadKey" block="LED Button|%pinNum| |%KeyButtons| Pressed"
+    //% blockId="wemakebit_LED4ButtonReadKey" block="LED Button|%pinNum| |%KeyButtons| Pressed"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::LED4ButtonReadKey
+    //% shim=wemakebit::LED4ButtonReadKey
     export function LED4ButtonReadKey(pinNum: wPorts, key: KeyButtons): number {
         return 0;
     }
-
     /**
      * Sliding Potentiometer read value
     */
-    //% blockId="elfshield_slidingPotentiometerReadValue" block="sliding Potentiometer|%pinNum| value"
+    //% blockId="wemakebit_slidingPotentiometerReadValue" block="sliding Potentiometer|%pinNum| value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::slidingPotentiometerReadValue
+    //% shim=wemakebit::slidingPotentiometerReadValue
     export function slidingPotentiometerReadValue(pinNum: wPorts): number {
         return 0;
     }
     /**
      * Potentiometer read value
     */
-    //% blockId="elfshield_PotentiometerReadValue" block="Potentiometer|%pinNum| value"
+    //% blockId="wemakebit_PotentiometerReadValue" block="Potentiometer|%pinNum| value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::PotentiometerReadValue
+    //% shim=wemakebit::PotentiometerReadValue
     export function PotentiometerReadValue(pinNum: wPorts): number {
         return 0;
     }
     /**
      * Gas Sensor MQ2 read value
     */
-    //% blockId="elfshield_gasSensorReadValue" block="Gas Sensor|%pinNum| value"
+    //% blockId="wemakebit_gasSensorReadValue" block="Gas Sensor|%pinNum| value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::gasSensorReadValue
+    //% shim=wemakebit::gasSensorReadValue
     export function gasSensorReadValue(pinNum: wPorts): number {
         return 0;
     }
     /**
      * get PIR Motion Sensor
     */
-    //% blockId="elfshield_getPIRMotion" block="getPIRMotion|%pinNum|"
+    //% blockId="wemakebit_getPIRMotion" block="getPIRMotion|%pinNum|"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::getPIRMotion
+    //% shim=wemakebit::getPIRMotion
     export function getPIRMotion(pinNum: wPorts): number {
         return 0;
+    } 
+    /**
+     * 4-Digital LED module Show Number
+    */
+    //% blockId="wemakebit_segmentDisplayShowNumber" block="Segment Display|%pinNum| show Number %value"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::segmentDisplayShowNumber
+    export function segmentDisplayShowNumber(pinNum: wPorts, value: number): void {
+        return;
     }
     /**
      * Joystick Module read value
     */
-    //% blockId="elfshield_JoystickReadValue" block="Joystick|%pinNum| get|%JSAxis| Value"
+    //% blockId="wemakebit_JoystickReadValue" block="Joystick|%pinNum| get|%JSAxis| Value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::JoystickReadValue
+    //% shim=wemakebit::JoystickReadValue
     export function JoystickReadValue(pinNum: wPorts, axis: JSAxis): number {
         return 0;
     }
     /**
      * Line Follower Sensor read value
     */
-    //% blockId="elfshield_lineFollowerRead" block="Line Follower|%pinNum| |%Lines| Value"
+    //% blockId="wemakebit_lineFollowerRead" block="Line Follower|%pinNum| |%Lines| Value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::lineFollowerRead
+    //% shim=wemakebit::lineFollowerRead
     export function lineFollowerRead(pinNum: wPorts, index: Lines): number {
         return 0;
     }
     /**
      * Tilt Switch read value
     */
-    //% blockId="elfshield_tiltSwitchRead" block="Tilt senosr|%pinNum| |%Lines| Value"
+    //% blockId="wemakebit_tiltSwitchRead" block="Tilt senosr|%pinNum| |%Lines| Value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::tiltSwitchRead
+    //% shim=wemakebit::tiltSwitchRead
     export function tiltSwitchRead(pinNum: wPorts, index: Lines): number {
         return 0;
     }
     /**
      * Flame Sensor read value
     */
-    //% blockId="elfshield_flameSensorRead" block="Flame senosr|%pinNum| |%Flames| Value"
+    //% blockId="wemakebit_flameSensorRead" block="Flame senosr|%pinNum| |%Flames| Value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::flameSensorRead
+    //% shim=wemakebit::flameSensorRead
     export function flameSensorRead(pinNum: wPorts, index: Flames): number {
         return 0;
     }
     /**
-     * 4-Digital LED module Show Number
-    */
-    //% blockId="elfshield_segmentDisplayShowNumber" block="Segment Display|%pinNum| show Number %value"
-    //% weight=22
-    //% blockGap=10
-    //% shim=elfshield::segmentDisplayShowNumber
-    export function segmentDisplayShowNumber(pinNum: wPorts, value: number): void {
-        return;
-    }
-    /**
-     * 4-Digital LED module Show Char
-    
-    //% blockId="elfshield_segmentDisplayShowChar" block="Segment Display|%pinNum| |%Addr| show Char %value"
-    //% weight=22
-    //% blockGap=10
-    //% shim=elfshield::segmentDisplayShowChar
-    export function segmentDisplayShowChar(pinNum: wPorts, Addr: number, Data: number): void {
-        return;
-    }
-    */
-    /**
      * Single LED set Light
     */
-    //% blockId="elfshield_singleLEDSet" block="single LED|%pinNum| set |%swStatus"
+    //% blockId="wemakebit_singleLEDSet" block="single LED|%pinNum| set |%swStatus"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::singleLEDSet
+    //% shim=wemakebit::singleLEDSet
     export function singleLEDSet(pinNum: wPorts, isOn: swStatus): void {
         return;
     }
     /**
      * Relay Module set switch
     */
-    //% blockId="elfshield_RelaySet" block="Relay|%pinNum| set |%swStatus"
+    //% blockId="wemakebit_RelaySet" block="Relay|%pinNum| set |%swStatus"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::RelaySet
+    //% shim=wemakebit::RelaySet
     export function RelaySet(pinNum: wPorts, isOn: swStatus): void {
         return;
     }
     /**
      * DC 130 Motor run speed
     */
-    //% blockId="elfshield_DC130MotorRunSpeed" block="130 DC Motor|%pinNum| runSpeed |%speed"
+    //% blockId="wemakebit_DC130MotorRunSpeed" block="130 DC Motor|%pinNum| runSpeed |%speed"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::DC130MotorRunSpeed
+    //% shim=wemakebit::DC130MotorRunSpeed
     export function DC130MotorRunSpeed(pinNum: wPorts, speed: number): void {
         return;
     }
     /**
-     * Color Sensor set Light
-    */
-    //% blockId="elfshield_colorSensorSetLight" block="color Sensor|%pinNum| set light |%swStatus"
-    //% weight=22
-    //% blockGap=10
-    //% shim=elfshield::colorSensorSetLight
-    export function colorSensorSetLight(pinNum: wPorts, isOn: swStatus): void {
-        return;
-    }
-    /**
-     * color Sensor White Balance
-    */
-    //% blockId="elfshield_colorSensorWhiteBalance" block="color Sensor|%pinNum| set White Balance"
-    //% weight=22
-    //% blockGap=10
-    //% shim=elfshield::colorSensorWhiteBalance
-    export function colorSensorWhiteBalance(pinNum: wPorts): void {
-        return;
-    }
-    /**
-     * Color Sensor read value
-    */
-    //% blockId="elfshield_colorSensorReadValue" block="color Sensor|%pinNum| |%Colors"
-    //% weight=22
-    //% blockGap=10
-    //% shim=elfshield::colorSensorReadValue
-    export function colorSensorReadValue(pinNum: wPorts, type: Colors): number {
-        return 0;
-    }
-    /**
      * MP3 Player Set music
     */
-    //% blockId="elfshield_MP3AppointMusic" block="MP3|%pinNum| set music|%number"
+    //% blockId="wemakebit_MP3AppointMusic" block="MP3|%pinNum| set music|%number"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3AppointMusic
+    //% shim=wemakebit::MP3AppointMusic
     export function MP3AppointMusic(pinNum: wPorts, num: number): void {
         return;
     }
     /**
      * MP3 Player Set Volume
     */
-    //% blockId="elfshield_MP3AppointVolume" block="MP3|%pinNum| set volmue|%number"
+    //% blockId="wemakebit_MP3AppointVolume" block="MP3|%pinNum| set volmue|%number"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3AppointVolume
+    //% shim=wemakebit::MP3AppointVolume
     export function MP3AppointVolume(pinNum: wPorts, num: number): void {
         return;
     }
     /**
      * MP3 Player Set Next Music
     */
-    //% blockId="elfshield_MP3NextMusic" block="MP3|%pinNum| next music"
+    //% blockId="wemakebit_MP3NextMusic" block="MP3|%pinNum| next music"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3NextMusic
+    //% shim=wemakebit::MP3NextMusic
     export function MP3NextMusic(pinNum: wPorts): void {
         return;
     }
     /**
      * MP3 Player Set Pause
     */
-    //% blockId="elfshield_MP3Pause" block="MP3|%pinNum| pause"
+    //% blockId="wemakebit_MP3Pause" block="MP3|%pinNum| pause"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3Pause
+    //% shim=wemakebit::MP3Pause
     export function MP3Pause(pinNum: wPorts): void {
         return;
     }
     /**
      * MP3 Player Set play
     */
-    //% blockId="elfshield_MP3Play" block="MP3|%pinNum| play"
+    //% blockId="wemakebit_MP3Play" block="MP3|%pinNum| play"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3Play
+    //% shim=wemakebit::MP3Play
     export function MP3Play(pinNum: wPorts): void {
         return;
     }
     /**
      * MP3 Player Set appoint device
     */
-    //% blockId="elfshield_MP3AppointDevice" block="MP3|%pinNum| set device|%MP3Device"
+    //% blockId="wemakebit_MP3AppointDevice" block="MP3|%pinNum| set device|%MP3Device"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3AppointDevice
+    //% shim=wemakebit::MP3AppointDevice
     export function MP3AppointDevice(pinNum: wPorts, devtype: MP3Device): void {
         return;
     }
@@ -550,40 +500,40 @@ enum NeoPixelColors {
     /**
      * MP3 Player is Over
     */
-    //% blockId="elfshield_MP3isOver" block="MP3|%pinNum| is over"
+    //% blockId="wemakebit_MP3isOver" block="MP3|%pinNum| is over"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3isOver
+    //% shim=wemakebit::MP3isOver
     export function MP3isOver(pinNum: wPorts): number {
         return 0;
     }
     /**
      * MP3 Player Set Prev Music
     */
-    //% blockId="elfshield_MP3PrevMusic" block="MP3|%pinNum| prev music"
+    //% blockId="wemakebit_MP3PrevMusic" block="MP3|%pinNum| prev music"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::MP3PrevMusic
+    //% shim=wemakebit::MP3PrevMusic
     export function MP3PrevMusic(pinNum: wPorts): void {
         return;
     }
     /**
      * LEDMatrix Display Set Brightness
     */
-    //% blockId="elfshield_ledPanelSetBrightness" block="LED Matrix|%pinNum|set brightness|%Bright"
-    //% weight=16
+    //% blockId="wemakebit_ledPanelSetBrightness" block="LED Matrix|%pinNum|set brightness|%Bright"
+    //% weight=22
     //% blockGap=10
-    //% shim=elfshield::ledPanelSetBrightness
+    //% shim=wemakebit::ledPanelSetBrightness
     export function ledPanelSetBrightness(pinNum: wPorts, Bright:number): void {
         return;
     }
     /**
      * LEDMatrix Display Clear Screen
     */
-    //% blockId="elfshield_ledPanelClearScreen" block="LED Matrix|%pinNum|clear screen"
-    //% weight=16
+    //% blockId="wemakebit_ledPanelClearScreen" block="LED Matrix|%pinNum|clear screen"
+    //% weight=22
     //% blockGap=10
-    //% shim=elfshield::ledPanelClearScreen
+    //% shim=wemakebit::ledPanelClearScreen
     export function ledPanelClearScreen(pinNum: wPorts): void {
         return;
     }
@@ -591,10 +541,10 @@ enum NeoPixelColors {
     /**
      * LEDMatrix Display Show Clock
     */
-    //% blockId="elfshield_ledPanelShowClock" block="LED Matrix|%pinNum|show time|%hour|:|%minute"
-    //% weight=16
+    //% blockId="wemakebit_ledPanelShowClock" block="LED Matrix|%pinNum|show Clock|%hour|:|%minute"
+    //% weight=22
     //% blockGap=10
-    //% shim=elfshield::ledPanelShowClock
+    //% shim=wemakebit::ledPanelShowClock
     export function ledPanelShowClock(pinNum: wPorts, hour:number, minute:number): void {
         return;
     }
@@ -602,42 +552,84 @@ enum NeoPixelColors {
     /**
      * LEDMatrix Display Show Number
     */
-    //% blockId="elfshield_ledPanelShowNum" block="LED Matrix|%pinNum|show number|%value"
-    //% weight=16
+    //% blockId="wemakebit_ledPanelShowNum" block="LED Matrix|%pinNum|show number|%value"
+    //% weight=22
     //% blockGap=10
-    //% shim=elfshield::ledPanelShowNum
+    //% shim=wemakebit::ledPanelShowNum
     export function ledPanelShowNum(pinNum: wPorts, value:number): void {
         return;
     }
     /**
      * LEDMatrix Display Show on Dot
     */
-    //% blockId="elfshield_ledPanelTurnOnDot" block="LED Matrix|%pinNum|show pixel x:|%x|y:|%y"
-    //% weight=16
+    //% blockId="wemakebit_ledPanelTurnOnDot" block="LED Matrix|%pinNum|show pixel x:|%x|y:|%y"
+    //% weight=22
     //% blockGap=10
-    //% shim=elfshield::ledPanelTurnOnDot
+    //% shim=wemakebit::ledPanelTurnOnDot
     export function ledPanelTurnOnDot(pinNum: wPorts, x:number,y:number): void {
         return;
     }
     /**
      * LEDMatrix Display hide Dot
     */
-    //% blockId="elfshield_ledPanelTurnOffDot" block="LED Matrix|%pinNum|hide pixel x:|%x|y:|%y"
-    //% weight=16
+    //% blockId="wemakebit_ledPanelTurnOffDot" block="LED Matrix|%pinNum|hide pixel x:|%x|y:|%y"
+    //% weight=22
     //% blockGap=10
-    //% shim=elfshield::ledPanelTurnOffDot
+    //% shim=wemakebit::ledPanelTurnOffDot
     export function ledPanelTurnOffDot(pinNum: wPorts, x:number,y:number): void {
         return;
     }
     /**
-     * Ultrasonic Sensor set LED
-    
-    //% blockId="elfshield_ultrasonicSetLed" block="ultrasonic Sensor|%pinNum| set Yellow led |%ultrasonicLED| |%swStatus"
+     * ultrasonic get Distance value
+    */
+    //% blockId="wemakebit_ultrasonicDistanceCm" block="ultrasonic Distance (Cm)|%pinNum| value"
     //% weight=22
     //% blockGap=10
-    //% shim=elfshield::ultrasonicSetLed
-    export function ultrasonicSetLed(pinNum: wPorts,index: ultrasonicLED, isOn: swStatus): void {
+    //% shim=wemakebit::ultrasonicDistanceCm
+    export function ultrasonicDistanceCm(pinNum: wPorts): number {
+        return 0;
+    }
+    /**
+     * Humiture Sensor read value
+    */
+    //% blockId="wemakebit_humitureSensorRead" block="Humiture Sensor|%pinNum| |%Humiture| Value"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::humitureSensorRead
+    export function humitureSensorRead(pinNum: wPorts, index: Humiture): number {
+        return 0;
+    }
+    /**
+     * Color Sensor set Light
+     
+    //% blockId="wemakebit_colorSensorSetLight" block="color Sensor|%pinNum| set light |%swStatus"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::colorSensorSetLight
+    export function colorSensorSetLight(pinNum: wPorts, isOn: swStatus): void {
         return;
+    }
+    */
+    /**
+     * color Sensor White Balance
+    
+    //% blockId="wemakebit_colorSensorWhiteBalance" block="color Sensor|%pinNum| set White Balance"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::colorSensorWhiteBalance
+    export function colorSensorWhiteBalance(pinNum: wPorts): void {
+        return;
+    }
+    */
+    /**
+     * Color Sensor read value
+    
+    //% blockId="wemakebit_colorSensorReadValue" block="color Sensor|%pinNum| |%Colors"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::colorSensorReadValue
+    export function colorSensorReadValue(pinNum: wPorts, type: Colors): number {
+        return 0;
     }
     */
 }

@@ -1,7 +1,7 @@
 {
     "name": "elfshield",
-    "version": "1.0.0",
-    "description": "ELF shield for microbit by Weeemake.",
+    "version": "1.0.1",
+    "description": "ELF Shield for MicroBit by Weeemake.",
     "license": "MIT",
     "dependencies": {
         "core": "*",
@@ -10,8 +10,8 @@
     },
     "files": [
         "README.md",
-        "elfshield.ts",
-        "elfshield.cpp",
+        "main.ts",
+        "wemakebit.cpp",
         "shims.d.ts",
         "enums.d.ts"
     ],

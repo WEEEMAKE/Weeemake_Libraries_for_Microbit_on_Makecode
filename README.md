@@ -1,6 +1,6 @@
 # elfshield
 
-ELF shield for microbit by Weeemake.
+ELF Shield for MicroBit by Weeemake.
 
 ## TODO
 
