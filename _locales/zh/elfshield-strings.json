@@ -1,6 +1,6 @@
 {
   
-  "elfshield.JoystickReadValue|block": "摇杆|%pinNum|获取|%JSAxis|的值",
+  
   "elfshield.LED4ButtonReadKey|block": "LED Button|%pinNum| |%KeyButtons| Pressed",
   "elfshield.MP3AppointDevice|block": "MP3|%pinNum| set device|%MP3Device",
   "elfshield.MP3AppointMusic|block": "MP3|%pinNum| set music|%number",
@@ -36,6 +36,7 @@
   "elfshield.slidingPotentiometerReadValue|block": "sliding Potentiometer|%pinNum| value",
   "elfshield.tiltSwitchRead|block": "Tilt senosr|%pinNum| |%Lines| Value",
   "elfshield.touchSetMode|block": "touch |%pinNum| setMode |%mode",
+  "elfshield.JoystickReadValue|block": "摇杆|%pinNum|获取|%JSAxis|的值",
   "elfshield.DC130MotorRunSpeed|block": "130风扇|%pinNum| 转速 |%speed",
   "elfshield.ultrasonicDistanceCm|block": "超声波|%pinNum|测距(Cm)",
   "elfshield.waterAtomizerSet|block": "water Atomizer |%pinNum| |%swStatus",
