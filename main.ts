@@ -594,7 +594,7 @@ enum NeoPixelColors {
     /**
      * ultrasonic get Distance value
     */
-    //% blockId=elfshield_ultrasonicDistanceCm block="ultrasonic Distance (Cm)|%pinNum| value"
+    
     //% weight=22
     //% blockGap=10
     //% shim=wemakebit::ultrasonicDistanceCm
