@@ -574,7 +574,7 @@ enum NeoPixelColors {
     /**
      * DC 130 Motor run speed
     */
-    //% blockId="elfshield_DC130MotorRunSpeed" block="130 DC Motor|%pinNum| runSpeed |%speed"
+    //% blockId=elfshield_DC130MotorRunSpeed block="130 DC Motor|%pinNum| runSpeed |%speed"
     //% weight=22
     //% blockGap=10
     //% shim=wemakebit::DC130MotorRunSpeed
@@ -584,7 +584,7 @@ enum NeoPixelColors {
     /**
      * ultrasonic get Distance value
     */
-    //% blockId="elfshield_ultrasonicDistanceCm" block="ultrasonic Distance (Cm)|%pinNum| value"
+    //% blockId=elfshield_ultrasonicDistanceCm block="ultrasonic Distance (Cm)|%pinNum| value"
     //% weight=22
     //% blockGap=10
     //% shim=wemakebit::ultrasonicDistanceCm
