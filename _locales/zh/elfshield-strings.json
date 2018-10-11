@@ -38,6 +38,8 @@
   "elfshield.DC130MotorRunSpeed|block": "130风扇|%pinNum| 转速 |%speed",
   "elfshield.ultrasonicDistanceCm|block": "超声波|%pinNum|距离(Cm)",
   "elfshield.waterAtomizerSet|block": "雾化器|%pinNum| 状态|%swStatus",
+  "neopixel.setPixelColor|block": "设置|%strip|第|%pixeloffset|颗灯亮 |%rgb=neopixel_colors|颜色",
+  "neopixel.rgb|block": "红 %red|绿 %green|蓝 %blue",
   "elfshield|block": "elfshield",
   "{id:category}Elfshield": "Elfshield" 
 }
