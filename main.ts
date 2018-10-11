@@ -369,7 +369,7 @@ enum NeoPixelColors {
     /**
      * Joystick Module read value
     */
-    //% blockId="wemakebit_JoystickReadValue" block="Joystick|%pinNum| get|%JSAxis| Value"
+    //% blockId="elfshield_JoystickReadValue" block="Joystick|%pinNum| get|%JSAxis| Value"
     //% weight=22
     //% blockGap=10
     //% shim=wemakebit::JoystickReadValue
