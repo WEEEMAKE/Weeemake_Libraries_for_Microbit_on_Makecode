@@ -579,7 +579,16 @@ enum NeoPixelColors {
     export function ledPanelTurnOffDot(pinNum: wPorts, x:number,y:number): void {
         return;
     }
-    
+    /**
+     * ultrasonic get Distance value
+    */
+    //% blockId="wemakebit_ultrasonicDistanceCm" block="ultrasonic Distance (Cm)|%pinNum| value"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::ultrasonicDistanceCm
+    export function ultrasonicDistanceCm(pinNum: wPorts): number {
+        return 0;
+    }
     /**
      * Humiture Sensor read value
     */
