@@ -429,7 +429,7 @@ enum NeoPixelColors {
     /**
      * DC 130 Motor run speed
     */
-    //% blockId="wemakebit_DC130MotorRunSpeed" block="130 DC Motor|%pinNum| runSpeed |%speed"
+    //% blockId="wemakebit_DC130MotorRunSpeed" block="130风扇|%pinNum| 转速 |%speed"
     //% weight=22
     //% blockGap=10
     //% shim=wemakebit::DC130MotorRunSpeed
