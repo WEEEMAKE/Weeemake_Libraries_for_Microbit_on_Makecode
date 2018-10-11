@@ -586,9 +586,9 @@ enum NeoPixelColors {
     //% weight=22
     //% blockGap=10
     //% shim=wemakebit::ultrasonicDistanceCm
-    export function ultrasonicDistanceCm(pinNum: wPorts): number {
-        return 0;
-    }
+    // export function ultrasonicDistanceCm(pinNum: wPorts): number {
+    //     return 0;
+    // }
     /**
      * Humiture Sensor read value
     */

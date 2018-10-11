@@ -842,29 +842,29 @@ namespace wemakebit {
     }
     
     //%
-    uint16_t ultrasonicDistanceCm(uint8_t pinNum)
-    {
-        uint16_t Sensor_data1 = 0,Sensor_data2 = 0;
-        if(oneWireReset(pinNum) != 0)
-            return 500;
-        OneWireWriteByte(pinNum,0x02);
-        OneWireRespond(pinNum);
-        Sensor_data1=OneWireReadByte(pinNum);
-        Sensor_data2=OneWireReadByte(pinNum);
-        UdistanceCm=Sensor_data2*256 + Sensor_data1;
-        //UdistanceCm=(uint16_t)(Sensor_data2<<8 | Sensor_data1); 
-        UdistanceCm=(uint16_t)UdistanceCm/17.57;
+    // uint16_t ultrasonicDistanceCm(uint8_t pinNum)
+    // {
+    //     uint16_t Sensor_data1 = 0,Sensor_data2 = 0;
+    //     if(oneWireReset(pinNum) != 0)
+    //         return 500;
+    //     OneWireWriteByte(pinNum,0x02);
+    //     OneWireRespond(pinNum);
+    //     Sensor_data1=OneWireReadByte(pinNum);
+    //     Sensor_data2=OneWireReadByte(pinNum);
+    //     UdistanceCm=Sensor_data2*256 + Sensor_data1;
+    //     //UdistanceCm=(uint16_t)(Sensor_data2<<8 | Sensor_data1); 
+    //     UdistanceCm=(uint16_t)UdistanceCm/17.57;
         
-        if (UdistanceCm>500)
-        {
-            return 500;
-        }
-        else
-        {
-            return UdistanceCm;
-        }
+    //     if (UdistanceCm>500)
+    //     {
+    //         return 500;
+    //     }
+    //     else
+    //     {
+    //         return UdistanceCm;
+    //     }
         
-    }
+    // }
     
     /*
     **We MP3 Player module V1.0.
