@@ -1,5 +1,5 @@
 {
-  "elfshield.DC130MotorRunSpeed|block": "130风扇|%pinNum| 转速 |%speed",
+  
   "elfshield.JoystickReadValue|block": "Joystick|%pinNum| get|%JSAxis| Value",
   "elfshield.LED4ButtonReadKey|block": "LED Button|%pinNum| |%KeyButtons| Pressed",
   "elfshield.MP3AppointDevice|block": "MP3|%pinNum| set device|%MP3Device",
@@ -22,6 +22,7 @@
   "elfshield.getMicValue|block": "Volume",
   "elfshield.getPIRMotion|block": "getPIRMotion|%pinNum|",
   "elfshield.getTouched|block": "touched |%pinNum",
+  "elfshield.DC130MotorRunSpeed|block": "130风扇|%pinNum| 转速 |%speed",
   "elfshield.humitureSensorRead|block": "Humiture Sensor|%pinNum| |%Humiture| Value",
   "elfshield.ledPanelClearScreen|block": "LED Matrix|%pinNum|clear screen",
   "elfshield.ledPanelSetBrightness|block": "LED Matrix|%pinNum|set brightness|%Bright",
