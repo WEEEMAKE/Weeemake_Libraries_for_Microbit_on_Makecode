@@ -14,7 +14,7 @@
         "wemakebit.cpp",
         "shims.d.ts",
         "enums.d.ts",
-        "_locales/elfshield-strings.json"
+        "_locales/zh/elfshield-strings.json"
     ],
     "testFiles": [
         "test.ts"
