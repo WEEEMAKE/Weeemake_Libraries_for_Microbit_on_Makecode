@@ -1,5 +1,5 @@
 {
-  "elfshield.DC130MotorRunSpeed|block": "130 风扇|%pinNum| 转速 |%speed",
+  "elfshield.DC130MotorRunSpeed|block": "130风扇|%pinNum| 转速 |%speed",
   "elfshield.JoystickReadValue|block": "Joystick|%pinNum| get|%JSAxis| Value",
   "elfshield.LED4ButtonReadKey|block": "LED Button|%pinNum| |%KeyButtons| Pressed",
   "elfshield.MP3AppointDevice|block": "MP3|%pinNum| set device|%MP3Device",
