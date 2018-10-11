@@ -1,6 +1,6 @@
 {
   
-  "elfshield.JoystickReadValue|block": "Joystick|%pinNum| get|%JSAxis| Value",
+  "elfshield.JoystickReadValue|block": "摇杆|%pinNum|获取|%JSAxis|的值",
   "elfshield.LED4ButtonReadKey|block": "LED Button|%pinNum| |%KeyButtons| Pressed",
   "elfshield.MP3AppointDevice|block": "MP3|%pinNum| set device|%MP3Device",
   "elfshield.MP3AppointMusic|block": "MP3|%pinNum| set music|%number",
