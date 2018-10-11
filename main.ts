@@ -426,16 +426,7 @@ enum NeoPixelColors {
     export function RelaySet(pinNum: wPorts, isOn: swStatus): void {
         return;
     }
-    /**
-     * DC 130 Motor run speed
-    */
-    //% blockId="elfshield_DC130MotorRunSpeed" block="130 DC Motor|%pinNum| runSpeed |%speed"
-    //% weight=22
-    //% blockGap=10
-    //% shim=wemakebit::DC130MotorRunSpeed
-    export function DC130MotorRunSpeed(pinNum: wPorts, speed: number): void {
-        return;
-    }
+    
     /**
      * MP3 Player Set music
     */
@@ -577,6 +568,17 @@ enum NeoPixelColors {
     //% blockGap=10
     //% shim=wemakebit::ledPanelTurnOffDot
     export function ledPanelTurnOffDot(pinNum: wPorts, x:number,y:number): void {
+        return;
+    }
+
+    /**
+     * DC 130 Motor run speed
+    */
+    //% blockId="elfshield_DC130MotorRunSpeed" block="130 DC Motor|%pinNum| runSpeed |%speed"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::DC130MotorRunSpeed
+    export function DC130MotorRunSpeed(pinNum: wPorts, speed: number): void {
         return;
     }
     /**
