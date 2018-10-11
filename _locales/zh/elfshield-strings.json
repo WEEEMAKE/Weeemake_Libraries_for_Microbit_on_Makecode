@@ -8,8 +8,8 @@
   "elfshield.MP3Play|block": "MP3|%pinNum| play",
   "elfshield.MP3PrevMusic|block": "MP3|%pinNum| prev music",
   "elfshield.MP3isOver|block": "MP3|%pinNum| is over",
-  "elfshield.MotorRunDelay|block": "Motor|%index|speed %speed|delay %delay|s",
-  "elfshield.MotorRun|block": "Motor|%index|speed %speed",
+  "elfshield.MotorRunDelay|block": "电机|%index|以速度 %speed|运行 %delay|秒",
+  "elfshield.MotorRun|block": "电机|%index|速度 %speed",
   "elfshield.MotorStopAll|block": "Motor Stop All",
   "elfshield.MotorStop|block": "Motor Stop|%index|",
   "elfshield.PotentiometerReadValue|block": "Potentiometer|%pinNum| value",
@@ -39,5 +39,5 @@
   "elfshield.ultrasonicDistanceCm|block": "超声波|%pinNum|测距(Cm)",
   "elfshield.waterAtomizerSet|block": "water Atomizer |%pinNum| |%swStatus",
   "elfshield|block": "elfshield",
-  "{id:category}Elfshield": "Elfshield"
+  "{id:category}Elfshield": "Elfshield" 
 }
