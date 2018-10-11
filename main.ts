@@ -366,16 +366,7 @@ enum NeoPixelColors {
     export function segmentDisplayShowNumber(pinNum: wPorts, value: number): void {
         return;
     }
-    /**
-     * Joystick Module read value
-    */
-    //% blockId="elfshield_JoystickReadValue" block="Joystick|%pinNum| get|%JSAxis| Value"
-    //% weight=22
-    //% blockGap=10
-    //% shim=wemakebit::JoystickReadValue
-    export function JoystickReadValue(pinNum: wPorts, axis: JSAxis): number {
-        return 0;
-    }
+    
     /**
      * Line Follower Sensor read value
     */
@@ -571,6 +562,17 @@ enum NeoPixelColors {
         return;
     }
 
+    /**
+     * Joystick Module read value
+    */
+    //% blockId= elfshield_JoystickReadValue block="Joystick|%pinNum| get|%JSAxis| Value"
+    //% weight=22
+    //% blockGap=10
+    //% shim=wemakebit::JoystickReadValue
+    export function JoystickReadValue(pinNum: wPorts, axis: JSAxis): number {
+        return 0;
+    }
+    
     /**
      * DC 130 Motor run speed
     */
