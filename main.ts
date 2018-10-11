@@ -59,6 +59,13 @@ enum NeoPixelColors {
         PortC = 3,
         PortD = 4
     }
+    export enum wRGBPorts {
+        All = 0,
+        PortA = 1,
+        PortB = 2,
+        PortC = 3,
+        PortD = 4
+    }
     export enum touchMode {
         Mode0 = 0,
         Mode1 = 1
@@ -181,6 +188,19 @@ enum NeoPixelColors {
         }
         return neoStrip;
     }
+
+    /**
+     * Init RGB pixels mounted on robotbit
+     */
+    //% blockId="wemakebit_rgb_onboard" block="RGB|%index|red:|%red|green:|%green|blue:%blue"
+    //% weight=5
+    //% blockGap=10
+    export function RGB_TEST(index:OnBoard_RGB,red:number,green:number,blue:number): void {
+        neoStrip = neopixel.create(DigitalPin.P8, 5, NeoPixelMode.RGB)
+        neoStrip.setPixelColor(index, neopixel.rgb(red, green, blue))
+        neoStrip.show();
+    }
+
     /**
      * get mic analog value.
      */
