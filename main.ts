@@ -190,18 +190,6 @@ enum NeoPixelColors {
     }
 
     /**
-     * Init RGB pixels mounted on robotbit
-     */
-    //% blockId="wemakebit_rgb_onboard" block="RGB|%index|red:|%red|green:|%green|blue:%blue"
-    //% weight=5
-    //% blockGap=10
-    export function RGB_TEST(index:number,red:number,green:number,blue:number): void {
-        neoStrip = neopixel.create(DigitalPin.P8, 5, NeoPixelMode.RGB)
-        neoStrip.setPixelColor(index, neopixel.rgb(red, green, blue))
-        neoStrip.show();
-    }
-
-    /**
      * get mic analog value.
      */
     //% blockId="wemakebit_mic" block="Volume"
