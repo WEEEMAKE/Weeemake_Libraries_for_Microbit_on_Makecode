@@ -582,7 +582,7 @@ enum NeoPixelColors {
     /**
      * ultrasonic get Distance value
     */
-    //% blockId="wemakebit_ultrasonicDistanceCm" block="超声波|%pinNum|测距(Cm)"
+    //% blockId="wemakebit_ultrasonicDistanceCm" block="超声波 |%pinNum| 测距(Cm)"
     //% weight=22
     //% blockGap=10
     //% shim=wemakebit::ultrasonicDistanceCm
