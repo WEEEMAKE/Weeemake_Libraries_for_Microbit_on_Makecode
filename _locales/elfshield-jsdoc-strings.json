@@ -38,6 +38,5 @@
   "elfshield.slidingPotentiometerReadValue": "Sliding Potentiometer read value",
   "elfshield.tiltSwitchRead": "Tilt Switch read value",
   "elfshield.touchSetMode": "Touch Moduel set Mode",
-  "elfshield.ultrasonicDistanceCm": "ultrasonic get Distance value",
   "elfshield.waterAtomizerSet": "Water Atomizer Moduel set start"
 }

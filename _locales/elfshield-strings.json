@@ -1,5 +1,5 @@
 {
-  "elfshield.DC130MotorRunSpeed|block": "130 DC Motor|%pinNum| runSpeed |%speed",
+  "elfshield.DC130MotorRunSpeed|block": "130 电机|%pinNum| 速度 |%speed",
   "elfshield.JoystickReadValue|block": "Joystick|%pinNum| get|%JSAxis| Value",
   "elfshield.LED4ButtonReadKey|block": "LED Button|%pinNum| |%KeyButtons| Pressed",
   "elfshield.MP3AppointDevice|block": "MP3|%pinNum| set device|%MP3Device",
@@ -36,7 +36,6 @@
   "elfshield.slidingPotentiometerReadValue|block": "sliding Potentiometer|%pinNum| value",
   "elfshield.tiltSwitchRead|block": "Tilt senosr|%pinNum| |%Lines| Value",
   "elfshield.touchSetMode|block": "touch |%pinNum| setMode |%mode",
-  "elfshield.ultrasonicDistanceCm|block": "ultrasonic Distance (Cm)|%pinNum| value",
   "elfshield.waterAtomizerSet|block": "water Atomizer |%pinNum| |%swStatus",
   "elfshield|block": "elfshield",
   "{id:category}Elfshield": "Elfshield"
