@@ -195,7 +195,7 @@ enum NeoPixelColors {
     //% blockId="wemakebit_rgb_onboard" block="RGB|%index|red:|%red|green:|%green|blue:%blue"
     //% weight=5
     //% blockGap=10
-    export function RGB_TEST(index:OnBoard_RGB,red:number,green:number,blue:number): void {
+    export function RGB_TEST(index:number,red:number,green:number,blue:number): void {
         neoStrip = neopixel.create(DigitalPin.P8, 5, NeoPixelMode.RGB)
         neoStrip.setPixelColor(index, neopixel.rgb(red, green, blue))
         neoStrip.show();
