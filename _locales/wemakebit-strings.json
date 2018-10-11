@@ -1,5 +1,5 @@
 {
-  "wemakebit.DC130MotorRunSpeed|block": "130 DC Motor|%pinNum| runSpeed |%speed",
+  "wemakebit.DC130MotorRunSpeed|block": "130风扇|%pinNum| 转速 |%speed",
   "wemakebit.JoystickReadValue|block": "Joystick|%pinNum| get|%JSAxis| Value",
   "wemakebit.LED4ButtonReadKey|block": "LED Button|%pinNum| |%KeyButtons| Pressed",
   "wemakebit.MP3AppointDevice|block": "MP3|%pinNum| set device|%MP3Device",
