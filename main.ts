@@ -60,7 +60,7 @@ enum NeoPixelColors {
         PortD = 4
     }
     export enum wRGBPorts {
-        All = 0,
+        OnBoard = 0,
         PortA = 1,
         PortB = 2,
         PortC = 3,
@@ -111,9 +111,10 @@ enum NeoPixelColors {
     export enum Humiture{
         temperature = 0,
         humidity = 1
-    }    
+    }  
+    let rgb_ports[5] = {DigitalPin.P8, DigitalPin.P13, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16}  
     let initialized = false
-    let neoStrip: neopixel.Strip;
+    let neoStrip[5]: neopixel.Strip;
 
     function i2cwrite(addr: number, reg: number, value: number) {
         let buf = pins.createBuffer(2)
@@ -182,11 +183,22 @@ enum NeoPixelColors {
     //% blockId="wemakebit_rgb" block="RGB"
     //% weight=5
     //% blockGap=10
+    //% deprecated=true
     export function rgb(): neopixel.Strip {
         if (!neoStrip) {
             neoStrip = neopixel.create(DigitalPin.P8, 3, NeoPixelMode.RGB)
         }
         return neoStrip;
+    }
+
+    //% blockId="wemakebit_rgb_test" block="RGB |%pinNum| number|%num_pixels"
+    //% weight=5
+    //% blockGap=10
+    export function rgb(pinNum:wRGBPorts, num_pixels:number):neopixel.Strip{
+        if (!neoStrip[pinNum]) {
+            neoStrip[pinNum] = neopixel.create(rgb_ports[pinNum], num_pixels, NeoPixelMode.RGB)
+        }
+        return neoStrip[pinNum];
     }
 
     /**
