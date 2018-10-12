@@ -112,9 +112,9 @@ enum NeoPixelColors {
         temperature = 0,
         humidity = 1
     }  
-    let rgb_ports: Array<5> = [DigitalPin.P8, DigitalPin.P13, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16];
+    let rgb_ports = [DigitalPin.P8, DigitalPin.P13, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16];
     let initialized = false
-    let neoStrip: [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
+    //let neoStrip: [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
     // let neoStrip: Array<5> = [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
      let neoStrip:neopixel.Strip
 
