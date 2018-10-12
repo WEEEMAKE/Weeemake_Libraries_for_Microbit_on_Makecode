@@ -112,9 +112,10 @@ enum NeoPixelColors {
         temperature = 0,
         humidity = 1
     }  
-    let rgb_ports[5] = {DigitalPin.P8, DigitalPin.P13, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16}  
+    let rgb_ports: Array<5> = [DigitalPin.P8, DigitalPin.P13, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16];
     let initialized = false
-    let neoStrip[5]: neopixel.Strip;
+    // let neoStrip: [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
+    let neoStrip: Array<5> = [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
 
     function i2cwrite(addr: number, reg: number, value: number) {
         let buf = pins.createBuffer(2)
@@ -198,7 +199,7 @@ enum NeoPixelColors {
         if (!neoStrip[pinNum]) {
             neoStrip[pinNum] = neopixel.create(rgb_ports[pinNum], num_pixels, NeoPixelMode.RGB)
         }
-        return neoStrip[pinNum];
+        return neoStrip[pinNum]; 
     }
 
     /**
