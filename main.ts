@@ -114,8 +114,9 @@ enum NeoPixelColors {
     }  
     let rgb_ports: Array<5> = [DigitalPin.P8, DigitalPin.P13, DigitalPin.P14, DigitalPin.P15, DigitalPin.P16];
     let initialized = false
-    // let neoStrip: [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
-    let neoStrip: Array<5> = [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
+    let neoStrip: [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
+    // let neoStrip: Array<5> = [neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip,neopixel.Strip];
+     let neoStrip:neopixel.Strip
 
     function i2cwrite(addr: number, reg: number, value: number) {
         let buf = pins.createBuffer(2)
