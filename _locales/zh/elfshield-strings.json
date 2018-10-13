@@ -63,7 +63,7 @@
   "neopixel.create|block": "端口%pin|连接灯数量|%numleds| 设置RGB格式（%mode|）",
   "neopixel.rgb|block": "红 %red|绿 %green|蓝 %blue",
   "neopixel.colors|block": "%color",
-  "neopixel.hsl|block": "设置RGB（色调%hue|饱和度%sat|亮度度%lum|）",
+  "neopixel.hsl|block": "设置RGB(色调%hue|饱和度%sat|亮度度%lum|)",
   "elfshield|block": "elfshield",
   "{id:category}Elfshield": "Elfshield" 
 }
