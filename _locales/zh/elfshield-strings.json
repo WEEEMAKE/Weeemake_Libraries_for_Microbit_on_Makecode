@@ -60,7 +60,7 @@
   "neopixel.Strip.length|block": "灯带%strip|灯的数量",
   "neopixel.Strip.setBrightness|block": "灯带%strip|的亮度设置为|%brightness|级",
   "neopixel.Strip.range|block": "灯带%strip|从%start|到%length|的灯",
-  "neopixel.create|block": "端口%pin|连接灯数量|%numleds| 设置RGB格式（%mode|）",
+  "neopixel.create|block": "端口%pin|连接灯数量|%numleds| 设置RGB格式%mode|",
   "neopixel.rgb|block": "红 %red|绿 %green|蓝 %blue",
   "neopixel.colors|block": "%color",
   "neopixel.hsl|block": "设置RGB(色调%hue|饱和度%sat|亮度度%lum|)",
