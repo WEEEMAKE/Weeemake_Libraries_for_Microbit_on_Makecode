@@ -594,7 +594,7 @@ enum NeoPixelColors {
     }
     /**
      * ultrasonic get Distance value
-    */
+    
     
     //% weight=22
     //% blockGap=10
@@ -602,6 +602,7 @@ enum NeoPixelColors {
     export function ultrasonicDistanceCm(pinNum: wPorts): number {
         return 0;
     }
+    */
     /**
      * Humiture Sensor read value
     */
