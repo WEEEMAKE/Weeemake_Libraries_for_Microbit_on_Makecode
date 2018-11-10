@@ -55,7 +55,7 @@
   "neopixel.Strip.showColor|block": "灯带%strip|显示颜色%rgb=neopixel_colors|",
   "neopixel.Strip.showRainbow|block": "灯带%strip|从色调|%startHue|到色调%endHue|显示彩虹灯",
   "neopixel.Strip.showBarGraph|block": "灯带%strip|从最小值%value|到最大値%high|显示光柱",
-  "neopixel.Strip.setPixelColor|block": "设置|%strip|第|%pixeloffset|颗灯亮 |%rgb=neopixel_colors|",
+  "neopixel.Strip.setPixelColor|block": "设置|%strip|第|%pixeloffset|颗灯为 |%rgb=neopixel_colors|",
   "neopixel.Strip.show|block": "灯带%strip|点亮RGB灯",
   "neopixel.Strip.clear|block": "清除灯带|%strip|所设置的颜色值",
   "neopixel.Strip.length|block": "灯带%strip|灯的数量",

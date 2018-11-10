@@ -18,10 +18,6 @@ namespace wemakebit {
     uint32_t mask14 = 1 << 22;
     uint32_t mask15 = 1 << 21;
     uint32_t mask16 = 1 << 16;
-    MicroBitPin P13 = uBit.io.P13;
-    MicroBitPin P14 = uBit.io.P14;
-    MicroBitPin P15 = uBit.io.P15;
-    MicroBitPin P16 = uBit.io.P16;
 
     volatile uint8_t  UltrasonicRGB1_data[3]={0,0,0};
     volatile uint8_t  UltrasonicRGB2_data[3]={0,0,0};
@@ -51,13 +47,13 @@ namespace wemakebit {
     uint8_t oneWireReset(uint8_t pinNum){
         if(pinNum == 1)
         {
-            P13.setDigitalValue(0);
-            P13.setDigitalValue(0);
+            uBit.io.P13.setDigitalValue(0);
+            uBit.io.P13.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
-            int b = P13.getDigitalValue();
+            int b = uBit.io.P13.getDigitalValue();
             for (volatile uint8_t i = 0; i < 50; i++);
-            b = P13.getDigitalValue();
-            //int b = P13.getDigitalValue();
+            b = uBit.io.P13.getDigitalValue();
+            //int b = uBit.io.P13.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
             for (volatile uint8_t i = 0; i < 100; i++);
@@ -65,13 +61,13 @@ namespace wemakebit {
         }
         else if(pinNum == 2)
         {
-            P14.setDigitalValue(0);
-            P14.setDigitalValue(0);
+            uBit.io.P14.setDigitalValue(0);
+            uBit.io.P14.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
-            int b = P14.getDigitalValue();
+            int b = uBit.io.P14.getDigitalValue();
             for (volatile uint8_t i = 0; i < 50; i++);
-            b = P14.getDigitalValue();
-            //int b = P14.getDigitalValue();
+            b = uBit.io.P14.getDigitalValue();
+            //int b = uBit.io.P14.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
             for (volatile uint8_t i = 0; i < 100; i++);
@@ -79,13 +75,13 @@ namespace wemakebit {
         }
         else if(pinNum == 3)
         {
-            P15.setDigitalValue(0);
-            P15.setDigitalValue(0);
+            uBit.io.P15.setDigitalValue(0);
+            uBit.io.P15.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
-            int b = P15.getDigitalValue();
+            int b = uBit.io.P15.getDigitalValue();
             for (volatile uint8_t i = 0; i < 50; i++);
-            b = P15.getDigitalValue();
-            //int b = P15.getDigitalValue();
+            b = uBit.io.P15.getDigitalValue();
+            //int b = uBit.io.P15.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
             for (volatile uint8_t i = 0; i < 100; i++);
@@ -93,13 +89,13 @@ namespace wemakebit {
         }
         else if(pinNum == 4)
         {
-            P16.setDigitalValue(0);
-            P16.setDigitalValue(0);
+            uBit.io.P16.setDigitalValue(0);
+            uBit.io.P16.setDigitalValue(0);
             for (volatile uint16_t i = 0; i < 540; i++);
-            int b = P16.getDigitalValue();
+            int b = uBit.io.P16.getDigitalValue();
             for (volatile uint8_t i = 0; i < 50; i++);
-            b = P16.getDigitalValue();
-            //int b = P13.getDigitalValue();
+            b = uBit.io.P16.getDigitalValue();
+            //int b = uBit.io.P13.getDigitalValue();
             //*clrdir = mask;
             //uint8_t b = (*inp) & mask;
             for (volatile uint8_t i = 0; i < 100; i++);
@@ -113,52 +109,52 @@ namespace wemakebit {
         if(pinNum == 1)
         {
             uint32_t time = uBit.systemTime();
-            while(1== P13.getDigitalValue()){
+            while(1== uBit.io.P13.getDigitalValue()){
                if((uBit.systemTime()-time)>100){
                    return 0;
                }
             }
-            while(0== P13.getDigitalValue());
+            while(0== uBit.io.P13.getDigitalValue());
             for (volatile uint8_t i = 0; i < 30;i++);
-            //P13.getDigitalValue();
+            //uBit.io.P13.getDigitalValue();
             return 1;
         }
         else if(pinNum == 2)
         {
             uint32_t time = uBit.systemTime();
-            while(1== P14.getDigitalValue()){
+            while(1== uBit.io.P14.getDigitalValue()){
                if((uBit.systemTime()-time)>100){
                    return 0;
                }
             }
-            while(0== P14.getDigitalValue());
-            //P14.setDigitalValue(0);
+            while(0== uBit.io.P14.getDigitalValue());
+            //uBit.io.P14.setDigitalValue(0);
             for (volatile uint8_t i = 0; i < 30;i++);
             return 1;
         }
         else if(pinNum == 3)
         {
             uint32_t time = uBit.systemTime();
-            while(1== P15.getDigitalValue()){
+            while(1== uBit.io.P15.getDigitalValue()){
                if((uBit.systemTime()-time)>100){
                    return 0;
                }
             }
-            while(0== P15.getDigitalValue());
-            //P15.setDigitalValue(0);
+            while(0== uBit.io.P15.getDigitalValue());
+            //uBit.io.P15.setDigitalValue(0);
             for (volatile uint8_t i = 0; i < 30;i++);
             return 1;
         }
         else if(pinNum == 4)
         {
             uint32_t time = uBit.systemTime();
-            while(1== P16.getDigitalValue()){
+            while(1== uBit.io.P16.getDigitalValue()){
                if((uBit.systemTime()-time)>10){
                    return 0;
                }
             }
-            while(0== P16.getDigitalValue());
-            //P16.setDigitalValue(0);
+            while(0== uBit.io.P16.getDigitalValue());
+            //uBit.io.P16.setDigitalValue(0);
             for (volatile uint8_t i = 0; i < 30;i++);
             return 1;
         }
@@ -171,79 +167,79 @@ namespace wemakebit {
         if(pinNum == 1)
         {
             for(i=0; i<8; i++){
-                P13.setDigitalValue(0);
+                uBit.io.P13.setDigitalValue(0);
                 for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
-                    P13.setDigitalValue(1);
+                    uBit.io.P13.setDigitalValue(1);
                 }
                 else
                 {
-                    P13.setDigitalValue(0);
+                    uBit.io.P13.setDigitalValue(0);
                 }
                 value = value>>1;
                 for (volatile uint8_t j = 0; j < 32;j++);
-                P13.setDigitalValue(1);
+                uBit.io.P13.setDigitalValue(1);
                 for (volatile uint8_t j = 0; j < 4;j++);
             }
         }
         else if(pinNum == 2)
         {
             for(i=0; i<8; i++){
-                P14.setDigitalValue(0);
+                uBit.io.P14.setDigitalValue(0);
                 for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
-                    P14.setDigitalValue(1);
+                    uBit.io.P14.setDigitalValue(1);
                 }
                 else
                 {
-                    P14.setDigitalValue(0);
+                    uBit.io.P14.setDigitalValue(0);
                 }
                 value = value>>1;
                 for (volatile uint8_t j = 0; j < 32;j++);
-                P14.setDigitalValue(1);
+                uBit.io.P14.setDigitalValue(1);
                 for (volatile uint8_t j = 0; j < 4;j++);
             }
         }
         else if(pinNum == 3)
         {
             for(i=0; i<8; i++){
-                P15.setDigitalValue(0);
+                uBit.io.P15.setDigitalValue(0);
                 for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
-                    P15.setDigitalValue(1);
+                    uBit.io.P15.setDigitalValue(1);
                 }
                 else
                 {
-                    P15.setDigitalValue(0);
+                    uBit.io.P15.setDigitalValue(0);
                 }
                 value = value>>1;
                 for (volatile uint8_t j = 0; j < 32;j++);
-                P15.setDigitalValue(1);
+                uBit.io.P15.setDigitalValue(1);
                 for (volatile uint8_t j = 0; j < 4;j++);
             }
         }
         else if(pinNum == 4)
         {
             for(i=0; i<8; i++){
-                P16.setDigitalValue(0);
+                uBit.io.P16.setDigitalValue(0);
                 for (volatile uint8_t j = 0; j < 2;j++);
                 if(value & 0x01)
                 {
-                    P16.setDigitalValue(1);
+                    uBit.io.P16.setDigitalValue(1);
                 }
                 else
                 {
-                    P16.setDigitalValue(0);
+                    uBit.io.P16.setDigitalValue(0);
                 }
                 value = value>>1;
                 for (volatile uint8_t j = 0; j < 32;j++);
-                P16.setDigitalValue(1);
+                uBit.io.P16.setDigitalValue(1);
                 for (volatile uint8_t j = 0; j < 4;j++);
             }
-            //P16.getDigitalValue();
+            //uBit.io.P16.getDigitalValue();
         }
     }
 
@@ -254,12 +250,12 @@ namespace wemakebit {
         if(pinNum == 1)
         {   
             uint8_t i,j=0,k=0;
-            P13.getDigitalValue();
+            uBit.io.P13.getDigitalValue();
             for(i=0; i<8; i++)
             {
-                while(1== P13.getDigitalValue());
+                while(1== uBit.io.P13.getDigitalValue());
                 for (volatile uint8_t l = 0; l < 30;l++);
-                j = P13.getDigitalValue();
+                j = uBit.io.P13.getDigitalValue();
                 for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
@@ -268,12 +264,12 @@ namespace wemakebit {
         else if(pinNum == 2)
         {
             uint8_t i,j=0,k=0;
-            P14.getDigitalValue();
+            uBit.io.P14.getDigitalValue();
             for(i=0; i<8; i++)
             {
-                while(1== P14.getDigitalValue());
+                while(1== uBit.io.P14.getDigitalValue());
                 for (volatile uint8_t l = 0; l < 30;l++);
-                j = P14.getDigitalValue();
+                j = uBit.io.P14.getDigitalValue();
                 for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
@@ -282,12 +278,12 @@ namespace wemakebit {
         else if(pinNum == 3)
         {
             uint8_t i,j=0,k=0;
-            P15.getDigitalValue();
+            uBit.io.P15.getDigitalValue();
             for(i=0; i<8; i++)
             {
-                while(1== P15.getDigitalValue());
+                while(1== uBit.io.P15.getDigitalValue());
                 for (volatile uint8_t l = 0; l < 30;l++);
-                j = P15.getDigitalValue();
+                j = uBit.io.P15.getDigitalValue();
                 for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
@@ -296,12 +292,12 @@ namespace wemakebit {
         else if(pinNum == 4)
         {
             uint8_t i,j=0,k=0;
-            P16.getDigitalValue();
+            uBit.io.P16.getDigitalValue();
             for(i=0; i<8; i++)
             {   
-                while(1== P16.getDigitalValue());
+                while(1== uBit.io.P16.getDigitalValue());
                 for (volatile uint8_t l = 0; l < 30;l++);
-                j = P16.getDigitalValue();
+                j = uBit.io.P16.getDigitalValue();
                 for (volatile uint8_t l = 0; l < 50;l++);
                 k = (j<<7)|(k>>1);
             }
@@ -736,19 +732,19 @@ namespace wemakebit {
     {
         if(pinNum == 1)
         {
-            P13.setDigitalValue(isOn);
+            uBit.io.P13.setDigitalValue(isOn);
         }
         else if(pinNum == 2)
         {
-            P14.setDigitalValue(isOn);
+            uBit.io.P14.setDigitalValue(isOn);
         }
         else if(pinNum == 3)
         {
-            P15.setDigitalValue(isOn);
+            uBit.io.P15.setDigitalValue(isOn);
         }
         else if(pinNum == 4)
         {
-            P16.setDigitalValue(isOn);
+            uBit.io.P16.setDigitalValue(isOn);
         }
     }
     /*
