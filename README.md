@@ -6,7 +6,6 @@ ELF Shield for MicroBit by Weeemake.
 ## TODO
 
 
-
 ## License
 
 * MIT
