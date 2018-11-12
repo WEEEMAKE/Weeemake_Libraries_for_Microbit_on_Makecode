@@ -576,14 +576,14 @@ namespace wemakebit {
         segmentDisplaySendNumber(pinNum);
     }    
     //%
-    void segmentDisplayShowNumber(uint8_t pinNum, int16_t value)
+    void segmentDisplayShowNumber(uint8_t pinNum, float value)
     {
         uint8_t tempBuf[10]={0};
         int buf[4]={0};
         uint8_t isNeg=0;
         uint8_t int_num = 0;
         uint8_t comma_flag=0;
-        double number = value;
+        float number = value;
         if (number>=9999)
         {
             We7SD_number1=0x09;
