@@ -9,7 +9,8 @@ ELF Shield for MicroBit by Weeemake.
 
 ## License
 
-MIT
+* MIT
+* Weeemake
 
 ## Supported targets
 
