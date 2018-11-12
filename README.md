@@ -1,6 +1,7 @@
 # elfshield
 
-ELF Shield for MicroBit by Weeemake.
+ELF Shield for MicroBit by Weeemake.  
+![](https://github.com/WEEEMAKE/makecode_libraries_for_elfshield/blob/master/elfshield_3.png)]
 
 ## TODO
 
