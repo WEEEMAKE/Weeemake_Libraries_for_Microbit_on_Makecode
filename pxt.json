@@ -1,17 +1,19 @@
 {
     "name": "elfshield",
-    "version": "1.0.1",
+    "version": "2.0",
     "description": "ELF Shield for MicroBit by Weeemake.",
     "license": "MIT",
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "neopixel": "github:Microsoft/pxt-neopixel#v0.6.8"
+        "neopixel": "github:Microsoft/pxt-neopixel#v0.6.10"
     },
     "files": [
         "README.md",
-        "main.ts",
-        "wemakebit.cpp",
+        "elfshield.ts",
+        "elfshield.cpp",
+        "WeOneWire.h",
+        "WeOneWire.cpp",
         "shims.d.ts",
         "enums.d.ts",
         "_locales/zh/elfshield-strings.json"
