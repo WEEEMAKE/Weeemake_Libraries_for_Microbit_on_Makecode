@@ -798,6 +798,7 @@ namespace ELF_Sensors{
     //% blockGap=10
     //% blockId="ELF_Sensors_Water_read_the_Value" block="Water Sensor |%pinNum| get the Analog Value"
     //% shim=elfshield::Water_Sensor_readAnalog
+    //% deprecated=true
     export function Water_Sensor_readAnalog(pinNum: WePorts): number {
         return 0;
     }
