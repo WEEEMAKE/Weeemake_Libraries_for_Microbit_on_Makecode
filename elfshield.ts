@@ -1,4 +1,4 @@
-
+ 
 enum WePorts {
     //% block="PortA"
     PortA = 1,
@@ -93,6 +93,41 @@ enum Humiture{
     //% block="humidity"
     humidity = 1
 }  
+
+enum PM25_Sensor{
+    //%block="PM1.0"
+    PM1_0 = 0,
+    //%block="PM2.5"
+    PM2_5 = 1,
+    //%block="PM10"
+    PM10 = 2
+}
+
+enum PM25_Sensor_Num{
+    //%block="0.3um"
+    Num0_3 = 0,
+    //%block="0.5um"
+    Num0_5 = 1,
+    //%block="1.0um"
+    Num1_0 = 2,
+    //%block="2.5um"
+    Num2_5 = 3,
+    //%block="5.0um"
+    Num5_0 = 4,
+    //%block="10um"
+    Num10 = 5
+}
+
+enum Color_Sensor{
+    //%block="Light"
+    LightValue=0,
+    //%block="Red"
+    RedValue=1,
+    //%block="Green"
+    GreenValue=2,
+    //%block="Blue"
+    BlueValue=3
+}
 
 //% icon="\uf021" color=#E94C4A
 namespace ELF_Executive{
@@ -307,8 +342,7 @@ namespace ELF_Display{
 
     /**
      * Init RGB pixels mounted on elfshield
-     * @param pinNum 在此处描述参数, eg:OnBoard
-     * @param num_pixels 在此处描述参数, eg: 3
+     * @param num_pixels , eg: 3
      */
     //% blockId="ELF_Display_rgb" block="|%pinNum|with|%num_pixels|leds"
     //% weight=22
@@ -351,7 +385,7 @@ namespace ELF_Display{
 
     /**
      * Init RGB pixels mounted on elfshield
-     * @param index 在此处描述参数, eg:0
+     * @param index , eg:0
      */
     //% blockId="ELF_Display_showRGB" block="RGB at%strip=ELF_Display_rgb|at|%index|show color|%rgb=neopixel_colors"
     //% weight=22
@@ -684,6 +718,139 @@ namespace ELF_Sensors{
     export function humitureSensorRead(pinNum: WePorts, index: Humiture): number {
         return 0;
     }
+
+    /**
+     * PM2.5 Sensor Set Fan
+    */
+    //% blockId="ELF_Sensors_PM2.5_Sensor_Set_Fan" block="PM2.5 Sensor |%pinNum| set fan insert |%isOn|"
+    //% weight=22
+    //% blockGap=10
+    //% shim=elfshield::PM25_setFanLaser
+    export function PM25_setFanLaser(pinNum: WePorts, isOn: swStatus): void {
+        return;
+    }
+
+    /**
+     * PM2.5 Sensor get value (ug/m^3)
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_PM25_read_PM_value" block="PM25 Sensor |%pinNum| get |%index| value(ug/m^3)"
+    //% shim=elfshield::PM25_readPMConcentration
+    export function PM25_readPMConcentration(pinNum: WePorts, index: PM25_Sensor): number {
+        return 0;
+    }
+
+    /**
+     * PM2.5 Sensor get the number of different particles in 0.1L air
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_PM25_read_the_number_of_particles" block="PM25 Sensor |%pinNum| get number of |%index|particles in 0.1L air"
+    //% shim=elfshield::PM25_readNumIn100ml
+    export function PM25_readNumIn100ml(pinNum: WePorts, index: PM25_Sensor_Num): number {
+        return 0;
+    }
+
+    /**
+     * Barometer Sensor set Origin Position
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_Barometer_set_Origin_Position" block="Barometer Sensor |%pinNum| set Origin Position"
+    //% shim=elfshield::Barometer_setOrigin
+    export function Barometer_setOrigin(pinNum: WePorts): void {
+        return;
+    }
+
+    /**
+     * Barometer Sensor get RelativeHeight
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_Barometer_read_the_Relative_Height" block="Barometer Sensor |%pinNum| get the Relative Height"
+    //% shim=elfshield::Barometer_readRelativeHeight
+    export function Barometer_readRelativeHeight(pinNum: WePorts): number {
+        return 0;
+    }
+
+    /**
+     * Barometer Sensor get Pressure
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_Barometer_read_the_Pressure" block="Barometer Sensor |%pinNum| get the Pressure"
+    //% shim=elfshield::Barometer_readPressure
+    export function Barometer_readPressure(pinNum: WePorts): number {
+        return 0;
+    }
+
+    /**
+     * Water Sensor get Analog Value
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_Water_read_the_Value" block="Water Sensor |%pinNum| get the Analog Value"
+    //% shim=elfshield::Water_Sensor_readAnalog
+    export function Water_Sensor_readAnalog(pinNum: WePorts): number {
+        return 0;
+    }
+
+    /**
+     * UV Sensor get Analog Value
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_UV_read_the_Value" block="UV Sensor |%pinNum| get the Analog Value"
+    //% shim=elfshield::UV_Sensor_readAnalog
+    export function UV_Sensor_readAnalog(pinNum: WePorts): number {
+        return 0;
+    }
+
+    /**
+     * UV Sensor get the Index
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_UV_read_the_Index" block="UV Sensor |%pinNum| get the Index"
+    //% shim=elfshield::UV_Sensor_readIndex
+    export function UV_Sensor_readIndex(pinNum: WePorts): number {
+        return 0;
+    }
+
+    /**
+     * Color Sensor set light on board
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_Color_set_light" block="Color Sensor |%pinNum| set LED |%index|"
+    //% shim=elfshield::Color_Sensor_setLight
+    export function Color_Sensor_setLight(pinNum: WePorts, isOn:swStatus): void {
+        return ;
+    }
+
+    /**
+     * Color Sensor get the value
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Sensors_Color_read_value" block="Color Sensor |%pinNum| get |%index|value"
+    //% shim=elfshield::Color_Sensor_readValue
+    export function Color_Sensor_readValue(pinNum: WePorts, index:Color_Sensor): number {
+        return 0;
+    }
+
+
 }
 //% icon="\uf11b" color=#B9D01E
 namespace ELF_Control{
@@ -745,11 +912,23 @@ namespace ELF_Control{
     /**
      * Joystick Module read value
     */
-    //% blockId=ELF_Control_JoystickReadValue block="Joystick|%pinNum| get|%JSAxis| Value"
+    //% blockId="ELF_Control_JoystickReadValue" block="Joystick|%pinNum| get|%JSAxis| Value"
     //% weight=22
     //% blockGap=10
     //% shim=elfshield::JoystickReadValue
     export function JoystickReadValue(pinNum: WePorts, axis: JSAxis): number {
+        return 0;
+    }
+
+    /**
+     * Funny Touch Sensor get the value
+    */
+    
+    //% weight=22
+    //% blockGap=10
+    //% blockId="ELF_Control_Funny Touch_read_the_value" block="Funny Touch Sensor |%pinNum| get the value"
+    //% shim=elfshield::Funny_Touch_Sensor_readValue
+    export function Funny_Touch_Sensor_readValue(pinNum: WePorts): number {
         return 0;
     }
 }

@@ -270,37 +270,42 @@ namespace elfshield {
     }
 
     //%
-    void colorSensorSetLight(uint8_t pinNum, uint8_t isOn)
+    void Color_Sensor_setLight(uint8_t pinNum, uint8_t isOn)
     {
-        if(one_wire_reset(pinNum) != 0)return;
+        if(one_wire_reset(pinNum) != 0)
+            return;
         one_wire_write_byte(pinNum,0x03);
-        if(one_wire_reset(pinNum) != 0)return;
+        if(one_wire_reset(pinNum) != 0)
+            return;
         one_wire_write_byte(pinNum,isOn);        
     }
 
     //%
-    uint16_t colorSensorReadValue(uint8_t pinNum, uint8_t type)
+    uint16_t Color_Sensor_readValue(uint8_t pinNum, uint8_t index)
     {
-        uint16_t ColorData[8] = {0};
-        if(one_wire_reset(pinNum) != 0)return 0;
-        one_wire_write_byte(pinNum,0x02);
+        uint16_t ColorData[2] = {0};
+        uint16_t sensor_value;
+        // __disable_irq();
+        if(one_wire_reset(pinNum) != 0){
+            // __enable_irq();
+            return 0;
+        }
+        switch(index){
+            case 0: one_wire_write_byte(pinNum,0x08);break;
+            case 1: one_wire_write_byte(pinNum,0x05);break;
+            case 2: one_wire_write_byte(pinNum,0x06);break;
+            case 3: one_wire_write_byte(pinNum,0x07);break;
+        }
+
         one_wire_respond(pinNum);
-        for(uint8_t i=0;i<8;i++)
-        {
-           ColorData[i]=one_wire_read_byte(pinNum);
-        }
-        Redvalue   = (uint16_t)(ColorData[1] << 8 | ColorData[0]);
-        Greenvalue = (uint16_t)(ColorData[3] << 8 | ColorData[2]);
-        Bluevalue  = (uint16_t)(ColorData[5] << 8 | ColorData[4]);
-        Colorvalue = (uint16_t)(ColorData[7] << 8 | ColorData[6]);
+
+        ColorData[0]=one_wire_read_byte(pinNum);
+        ColorData[1]=one_wire_read_byte(pinNum);
+
+        sensor_value   = (uint16_t)(ColorData[1] << 8 | ColorData[0]);
         uBit.sleep(10);
-        switch(type){
-            case 1: return Redvalue;
-            case 2: return Greenvalue;
-            case 3: return Bluevalue;
-        }
-        //return Redvalue;
-        return 0;
+
+        return sensor_value;
     }
 
     /*
@@ -621,7 +626,10 @@ namespace elfshield {
             return 500;
         }
         one_wire_write_byte(pinNum,0x02);
-        one_wire_respond(pinNum);
+        while(!one_wire_respond(pinNum)){
+            __enable_irq();
+        }
+        __disable_irq();
         Sensor_data1=one_wire_read_byte(pinNum);
         Sensor_data2=one_wire_read_byte(pinNum);
         // distance=Sensor_data2*256 + Sensor_data1;
@@ -1076,4 +1084,196 @@ namespace elfshield {
             }
         }         
     }
+
+    /*
+    ** PM 2.5 Sensor V1.0
+    */
+
+    //%
+    void PM25_setFanLaser(uint8_t pinNum, bool isOn)
+    {
+         if(one_wire_reset(pinNum) != 0)return;
+        one_wire_write_byte(pinNum,0x02);
+        if(one_wire_reset(pinNum) != 0)return;
+        one_wire_write_byte(pinNum,isOn);
+        uBit.sleep(3);
+    }
+
+    //%
+    uint16_t PM25_readPMConcentration(uint8_t pinNum, uint8_t index)    
+    {
+        uint16_t SensorData=0;
+        __disable_irq();
+        if (one_wire_reset(pinNum) != 0){ 
+            __enable_irq();
+            return 0; 
+        }
+        switch(index){
+            case 0: one_wire_write_byte(pinNum,0x03);break;
+            case 1: one_wire_write_byte(pinNum,0x04);break;
+            case 2: one_wire_write_byte(pinNum,0x05);break;
+        }
+        // one_wire_respond(pinNum);
+        while(!one_wire_respond(pinNum)){
+            __enable_irq();
+        }
+        __disable_irq();
+        uint8_t sensor_data1=one_wire_read_byte(pinNum);
+        uint8_t sensor_data2=one_wire_read_byte(pinNum);   
+        SensorData=(uint16_t)(sensor_data1<<8|sensor_data2);
+        __enable_irq();
+        return SensorData;
+    }
+
+
+    //%
+    uint16_t PM25_readNumIn100ml(uint8_t pinNum, uint8_t index)    
+    {
+        uint16_t SensorData=0;
+        __disable_irq();
+        if (one_wire_reset(pinNum) != 0){   
+            __enable_irq();
+            return 0;
+        } 
+        switch(index){
+            case 0:one_wire_write_byte(pinNum,0x06);break;
+            case 1:one_wire_write_byte(pinNum,0x07);break;
+            case 2:one_wire_write_byte(pinNum,0x08);break;
+            case 3:one_wire_write_byte(pinNum,0x09);break;
+            case 4:one_wire_write_byte(pinNum,0x0a);break;
+            case 5:one_wire_write_byte(pinNum,0x0b);break;
+        }
+        // one_wire_respond(pinNum);
+        while(!one_wire_respond(pinNum)){
+            __enable_irq();
+        }
+        __disable_irq();
+        uint8_t sensor_data1=one_wire_read_byte(pinNum);
+        uint8_t sensor_data2=one_wire_read_byte(pinNum);
+        SensorData=(uint16_t)(sensor_data1<<8|sensor_data2);
+        __enable_irq();
+        return SensorData;
+    }
+
+    /*
+    ** Barometer Sensor V1.0
+    */
+
+    //%
+    void Barometer_setOrigin(uint8_t pinNum)
+    {
+        if(one_wire_reset(pinNum) != 0)
+            return ;
+        one_wire_write_byte(pinNum,0x05);
+        uBit.sleep(200);
+    }
+    
+    //%
+    float Barometer_readRelativeHeight(uint8_t pinNum)
+    {
+        uint8_t BarometerData[4];
+        float height = 1;
+        __disable_irq();
+        if(one_wire_reset(pinNum) != 0){
+            __enable_irq();
+            return 0;
+        }
+        one_wire_write_byte(pinNum,0x02);
+        one_wire_respond(pinNum);
+        while(!one_wire_respond(pinNum)){
+            __enable_irq();
+        }
+        __disable_irq();
+        BarometerData[0]=one_wire_read_byte(pinNum);
+        BarometerData[1]=one_wire_read_byte(pinNum);
+        BarometerData[2]=one_wire_read_byte(pinNum);
+        BarometerData[3]=one_wire_read_byte(pinNum);
+        __enable_irq();
+        height=(int32_t)BarometerData[0]+((int32_t)BarometerData[1]<<8)+((int32_t)BarometerData[2]<<16)+((int32_t)BarometerData[3]<<24);
+        height=height/100;
+        return height;
+    }
+
+    //%
+    float Barometer_readPressure(uint8_t pinNum)
+    {
+        uint8_t BarometerData[4];
+        float height = 1;
+        __disable_irq();
+        if(one_wire_reset(pinNum) != 0){
+            __enable_irq();
+            return 0;
+        }
+        one_wire_write_byte(pinNum,0x03);
+        while(!one_wire_respond(pinNum)){
+            __enable_irq();
+        }
+        __disable_irq();
+        BarometerData[0]=one_wire_read_byte(pinNum);
+        BarometerData[1]=one_wire_read_byte(pinNum);
+        BarometerData[2]=one_wire_read_byte(pinNum);
+        BarometerData[3]=one_wire_read_byte(pinNum);
+        __enable_irq();
+        height=(int32_t)BarometerData[0]+((int32_t)BarometerData[1]<<8)+((int32_t)BarometerData[2]<<16)+((int32_t)BarometerData[3]<<24);
+        height=height/100;
+        return height;
+    }
+
+    /*
+    ** Water Sensor V1.0
+    */
+    //%
+    uint8_t Water_Sensor_readAnalog(uint8_t pinNum)
+    {
+        uint8_t sensor_value;
+        if(one_wire_reset(pinNum) != 0)
+            return 0;
+        one_wire_write_byte(pinNum,0x02);
+        one_wire_respond(pinNum);
+        sensor_value = one_wire_read_byte(pinNum);
+        return sensor_value;
+    }
+
+    /*
+    ** UV Sensor V1.0
+    */
+    //%
+    uint8_t UV_Sensor_readAnalog(uint8_t pinNum)
+    {
+        uint8_t sensor_value;
+        if(one_wire_reset(pinNum) != 0)
+            return 0;
+        one_wire_write_byte(pinNum,0x02);
+        one_wire_respond(pinNum);
+        sensor_value = one_wire_read_byte(pinNum);
+        return sensor_value;
+    }
+
+    //%
+    uint8_t UV_Sensor_readIndex(uint8_t pinNum)
+    {
+        uint8_t sensor_value;
+        if(one_wire_reset(pinNum) != 0)
+            return 0;
+        one_wire_write_byte(pinNum,0x03);
+        one_wire_respond(pinNum);
+        sensor_value = one_wire_read_byte(pinNum);
+        return sensor_value;
+    }
+
+     /*
+    ** Funny Touch Sensor V1.0
+    */
+    //%
+    uint8_t Funny_Touch_Sensor_readValue(uint8_t pinNum)
+    {
+        uint8_t sensor_value;
+        if(one_wire_reset(pinNum) != 0)
+            return 0;
+        one_wire_write_byte(pinNum,0x02);
+        one_wire_respond(pinNum);
+        sensor_value = one_wire_read_byte(pinNum);
+        return sensor_value;
+    }
+
 }
