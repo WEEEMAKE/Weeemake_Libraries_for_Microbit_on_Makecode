@@ -1,6 +1,6 @@
 {
     "name": "elfshield",
-    "version": "2.1",
+    "version": "0.2.1",
     "description": "ELF Shield for MicroBit by Weeemake.",
     "license": "MIT",
     "dependencies": {
