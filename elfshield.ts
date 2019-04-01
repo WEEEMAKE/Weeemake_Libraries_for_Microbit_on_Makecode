@@ -762,6 +762,7 @@ namespace ELF_Sensors{
     //% blockGap=10
     //% blockId="ELF_Sensors_Barometer_set_Origin_Position" block="Barometer Sensor |%pinNum| set Origin Position"
     //% shim=elfshield::Barometer_setOrigin
+    //% deprecated=true
     export function Barometer_setOrigin(pinNum: WePorts): void {
         return;
     }
@@ -774,6 +775,7 @@ namespace ELF_Sensors{
     //% blockGap=10
     //% blockId="ELF_Sensors_Barometer_read_the_Relative_Height" block="Barometer Sensor |%pinNum| get the Relative Height"
     //% shim=elfshield::Barometer_readRelativeHeight
+    //% deprecated=true
     export function Barometer_readRelativeHeight(pinNum: WePorts): number {
         return 0;
     }
