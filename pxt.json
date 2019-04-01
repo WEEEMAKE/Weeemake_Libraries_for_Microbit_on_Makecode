@@ -22,5 +22,6 @@
     "testFiles": [
         "test.ts"
     ],
-    "public": true
+    "public": true,
+    "installedVersion": "github:weeemake/weeemake_libraries_for_microbit_on_makecode#v0.2.1"
 }
